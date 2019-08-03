@@ -1,0 +1,13 @@
+*.egg-info
+*.pyc
+dist
+model_input.txt
+model_output.txt
+y_rbf.txt
+tests/*.txt
+/build/
+/dist/
+*.log
+.coveralls.yml
+
+.coverage
