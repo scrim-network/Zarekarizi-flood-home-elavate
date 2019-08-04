@@ -1,6 +1,7 @@
 # Uncertainty quantification of building-level expected damages and its role in decisions for mitigation strategies: case study of elevating a house
 
 Mahkameh Zarekarizi(1), and Klaus Keller(1,2)
+
 1 Earth and Environmental Systems Institute, The Pennsylvania State University, University Park, PA, U.S.A. 
 2 Department of Geosciences, The Pennsylvania State University, University Park, PA, U.S.A. 
 
