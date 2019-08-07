@@ -22,12 +22,6 @@
 ## You should have received a copy of the GNU General Public License
 ## along with this file.  If not, see <http://www.gnu.org/licenses/>.
 ##==============================================================================
-# Global variables
-rm(list=ls())
-main_path="~/Documents/Research/House_Elevation_Project/GitHub/Zarekarizi-flood-home-elavate/"
-
-# Change the directory
-setwd(paste(main_path,"Source_Code",sep=""))
 
 # Load the required libraries
 library(evd) # We would use pgev, qgev from this package
@@ -361,7 +355,7 @@ findopt_UNC <- function(sqft,Struc_Value,del,House_Initial_Stage,life_span,disc_
   row.names(myreturn) <- c("Not_elevating","fema_elevating","opt_elevating","optunc_elevating") 
 
     if(save_return==1){
-    filename=paste("~/Documents/Research/House_Elevation_Project/Source_Code/Damages/RData/UNC-SR_V",toString(trunc(Struc_Value/1000)),"Sq",toString(trunc(sqft)),"I",toString(del),".RData",sep="")
+    filename=paste(main_path,"Results_RData/cases_objectives/UNC-SR_V",toString(trunc(Struc_Value/1000)),"Sq",toString(trunc(sqft)),"I",toString(del),".RData",sep="")
     save(damages_unc_max,damages_unc_mean,damages_unc_min,cb_unc_min,cb_unc_mean,cb_unc_max,safety_unc_max,safety_unc_min,safety_unc_mean,
          delta_h_seq,totcost_unc_max,totcost_unc_min,totcost_unc_mean,opt_height_unc_total_cost,opt_height_unc,
          opt_height_safety,opt_height,opt_height_total_cost,safety_seq,FEMA_Recomm_cost,FEMA_Recomm_damage,
