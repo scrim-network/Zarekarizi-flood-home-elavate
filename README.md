@@ -14,7 +14,8 @@ This information will be updated upon acceptance of the paper
 # How to run the code 
 
 # Contacts 
-mahkameh Zarekarizi mxz414@psu.edu mahkameh.zare@gmail.com
+mahkameh Zarekarizi mxz414@psu.edu and mahkameh.zare@gmail.com
+
 Klaus Keller kzk10@psu.edu
 
 # License
