@@ -1,3 +1,17 @@
+##==============================================================================
+##
+## Script to define functions needed by PRIM
+#
+## code adopted (and slightly modified) from 
+## Hadka, D., Herman, J., Reed, P., Keller, K., 2015. 
+## An open source framework for many-objective robust decision making. 
+## Environtl Modeling and Softw. 74, 114–129. https://doi.org/10.1016/J.ENVSOFT.2015.07.014
+##==============================================================================
+
+# Load libraries
+library(prim)
+
+# Start funcitons
 ##########################################################################
 ##########################################################################
 ##########################################################################
@@ -13,11 +27,11 @@ mordm.plot.box <- function(data, mark, main="", scale.width=TRUE, bar.width=3, c
   outcol <- "transparent"
   
   # reset plot settings
-#  if (exists("default.par", mordm.globals)) {
-#    par(get("default.par", mordm.globals))
-#  } else {
-#    assign("default.par", par(no.readonly=TRUE), mordm.globals)
-#  }
+  #  if (exists("default.par", mordm.globals)) {
+  #    par(get("default.par", mordm.globals))
+  #  } else {
+  #    assign("default.par", par(no.readonly=TRUE), mordm.globals)
+  #  }
   
   if (legend) {
     layout(c(1,2), heights=c(7,1))
@@ -102,13 +116,13 @@ mordm.plot.box <- function(data, mark, main="", scale.width=TRUE, bar.width=3, c
       names <- sprintf("Box %i", 1:length(mark))
     }
     
-#    legend("center",
-#           legend=names,
-#           fill=colors,
-#           bty="o",
-#           cex=1.0,
-#           horiz=TRUE,
-#           xjust=0.5)
+    #    legend("center",
+    #           legend=names,
+    #           fill=colors,
+    #           bty="o",
+    #           cex=1.0,
+    #           horiz=TRUE,
+    #           xjust=0.5)
   }
 }
 
@@ -209,27 +223,3 @@ analyze.prim <- function(factors, response, bounds=NULL, which.box=1, show.plot=
 ##########################################################################
 ##########################################################################
 ##########################################################################
-load("~/Documents/Research/House_Elevation_Project/Source_Code/Damages/RData/Hypothetical_community_CBA_Unc_2019-05-31.RData")
-inds=which(    (!is.nan(fema_bc) & !is.na(fema_bc)) & 
-                 (!is.nan(fema_const_frac) & !is.na(fema_const_frac)) & 
-                 (!is.nan(fema_safety) & !is.na(fema_safety)) 
-)
-
-fema_pass<-rep(NA,length(inds))
-for(j in 1:length(inds)){
-  i=inds[j]
-  if     (fema_bc[i]<1 & fema_const_frac[i]< 1){fema_pass[j]=0}
-  else if(fema_bc[i]>1 & fema_const_frac[i]>=1){fema_pass[j]=0}
-  else if(fema_bc[i]<1 & fema_const_frac[i]>=1){fema_pass[j]=0}
-  else                                         {fema_pass[j]=1}
-}
-
-SOWss=SOWs
-SOWss[,2]=SOWs[,2]/1000
-colnames(SOWss)<-c('size[sqft]','value[1,000 US$]','elevation wrt BFE[ft]','lifespan[yrs]')
-
-pdf("Figures/PRIM_FEMA_PASS_NO_PASS.pdf",width = 3.94,height=2.83)#   5.47)
-par(cex=0.5)
-analyze.prim(SOWss[inds,],fema_pass,threshold.type=-1,threshold=0.5)
-dev.off()
-

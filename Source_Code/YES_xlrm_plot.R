@@ -27,7 +27,9 @@ main_path="~/Documents/Research/House_Elevation_Project/GitHub/Zarekarizi-flood-
 setwd(paste(main_path,"Source_Code",sep=""))
 
 # Plot XLRM 
-pdf("Figure/xlrm.pdf", width =3.94, height =2.43)
+#pdf("Figure/xlrm.pdf", width =3.94, height =2.43)
+jpeg(paste(main_path,"Figures/xlrm.jpeg",sep=""),width =3.94, height =2.43,units="in",res=300)
+
 par(cex=0.35)
 plot(NA,NA,type="n",xlim=c(1,10),ylim=c(1,10),xaxt="n",yaxt="n",bty="n",xlab="",ylab="")
 
