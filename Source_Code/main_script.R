@@ -2,8 +2,7 @@
 ##
 ## Script for automatic executaton of all other scripts
 ##
-## Authors: Mahkameh Zarekarizi (mahkameh.zare@gmail.com) 
-##          and Klaus Keller (klaus@psu.edu)
+## Author: Mahkameh Zarekarizi (mahkameh.zare@gmail.com) 
 ##==============================================================================
 ## Copyright 2019 Mahkameh Zarekarizi
 ## This file is free software: you can redistribute it and/or modify
@@ -20,25 +19,39 @@
 ## along with this file.  If not, see <http://www.gnu.org/licenses/>.
 ##==============================================================================
 ## Instructions to run:
-## 1. As far as you are running this script within its containing folder,
-##    you do not need to do anything. Just run the code
-##    This script automatically reproduces all the data and figures in the paper 
-##    Since geenrating 10,000 houses is coputationally time consuming, the default 
-##    number of houses is reduced to 100. Also, for the same reason, the default 
-##    number of strategies in reduced too. Therefore, running this script with 
-##    the default arguments will not generate the exact similar figures as the 
-##    paper. TO reproduce paper figures, please increase the number of strategies 
-##    to 100 and increase the number of houses to 10,000.
-##    To increase number of houses, change the first argument of S16 below and 
-##    to increase the number of strategies, change the second argument in the 
-##    same function.
-## 2. To Run:
-##      Click on source
-## 3. Outputs:
+## This rep is a package of multiple scripts indicated in the order they will be needed. For example, S1_....R indicates step 1.
+## The entire package is controled by main_script.R. This script contains a swtich that gives you freedom to run the entire package locally on your machine or use the prepared data that was used in the paper. 
+## To use the prepared data, set use_prepared_data=TRUE (this is the default option). To run the code yourself locally, set use_prepared_data=FALSE
+## On a regular desktop computer, the entire program if (use_prepared_data=FALSE) should take around 10 hours.
+## List of packages that you need to install before running the code is provided below. 
+##
+## To Run:
+##      1. Set the working directory to the main folder (Zarekarizi-flood-flood-home-elevate). 
+##      2. set use_prepared_data
+##      To do so:
+##          1. If on RStudio, open the README.md file. Then on the menu bar, go to 
+##              Session-->Set Working Directory-->To Source File Location
+##          2. If on RStudio, on the lower right box, open "Zarekarizi-Home-Elevation"
+##              Then, click on More --> Set as Working Directory
+##          3. On console, type the following command: 
+##              setwd("~/.../../../../Zarekarizi-Home-Elevation") 
+##      3. Run (by clicking on Source in Rstudio)
+## What happens next: 
+##      R will go through all the scripts one by one (S01_XLRM.R all the way to  S33_SA_radialPlot_dr_range.R)  
+##      After each script is done, there will be a message om screen reporting that script is done. 
+##      The scripts will use the input data saved in the folder called "Input_Data"
+## Outputs:
 ##      1. Figures are saved in Figures directory under the main folder
-##      2. Data are saved in the Results_RData folder under the main directory
+##      2. Data are saved in the Output_Data folder under the main directory
+## Requirements before running
+##      You will need R and these packages: lattice,Kendall,ismev,evdbayes,evir,
+##      evd,lhs,fields,plotrix,lhs,rpart,rpart.plot,DEoptim,prim,truncnorm,sdtoolkit,sensitivity,pracma
+
+##==============================================================================
+##==============================================================================
 ##==============================================================================
 
+# Start the program here
 rm(list=ls()) #Just in case, remove any variable that is already loaded 
 graphics.off() #to make sure the user does not have an open figure
 use_prepared_data=TRUE

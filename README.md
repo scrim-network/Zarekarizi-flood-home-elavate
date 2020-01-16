@@ -1,21 +1,50 @@
-# Uncertainty quantification of building-level expected damages and its role in decisions for mitigation strategies: case study of elevating a house
+# Neglecting Uncertainties Leads to Suboptimal Decisions About Home-Owners Flood Risk Management
 
-Mahkameh Zarekarizi(1), and Klaus Keller(1,2)
+Mahkameh Zarekarizi1*, Vivek Srikrishnan1, and Klaus Keller1,2
 
-1 Earth and Environmental Systems Institute, The Pennsylvania State University, University Park, PA, U.S.A. 
+1 Earth and Environmental Systems Institute, the Pennsylvania State University, University Park, PA, USA
+2 Department of Geosciences, the Pennsylvania State University, University Park, PA, USA
 
-2 Department of Geosciences, The Pennsylvania State University, University Park, PA, U.S.A. 
+* Corresponding author
 
-Elevating a building is a common approach to manage flood risks. Homeowners need to decide if and how much to elevate a building. The Federal Emergency Management Agency (FEMA) provides a general recommendation of elevating the building to at least the Base Flood Elevation plus a freeboard. This raises the question: what is an economically optimal house elevation decision in the face of uncertain flood projections? Here we present a cost-benefit analysis under uncertainty and compare the results with FEMA’s recommendation. We analyzed four main strategies: (1) repairing as floods occur, (2) lifting the house to FEMA’s minimum recommendation, (3) elevating the house to a cost-optimal elevation that minimizes the total cost (current cost of elevating plus net present value of expected damages), and (4) elevating the building to the optimal elevation under uncertainty. We show that the economically optimal elevation typically increases if uncertainty in flood hazard is considered.  Furthermore,  the strategy to elevate to FEMA’s recommendation can often be improved on from a cost-benefit perspective. 
+Homeowners around the world elevate houses to manage flood risks. Deciding how high to elevate the house poses a nontrivial decision problem. The U.S. Federal Emergency Management Agency (FEMA) recommends elevating a house to the Base Flood Elevation (the elevation of the 100-yr flood) plus a freeboard. This recommendation neglects many uncertainties. Here we use a multi-objective robust decision-making framework to analyze this decision in the face of deep uncertainties. We find strong interactions between the economic, engineering, and Earth science uncertainties, illustrating the need for an integrated analysis. We show that considering deep uncertainties surrounding flood hazards, the discount rate, the house lifetime, and the fragility increases the economically optimal house elevation to values well above FEMA’s recommendation. An improved decision-support for home-owners has the potential to drastically improve decisions and outcomes. 
 
 # Citing the code
-This information will be updated upon acceptance of the paper 
+Until the paper is published, please cite our preprint at this link: 
 
 # How to run the code 
+Instructions to run:
+This rep is a package of multiple scripts indicated in the order they will be needed. For example, S1_....R indicates step 1.
+The entire package is controled by main_script.R. This script contains a swtich that gives you freedom to run the entire package locally on your machine or use the prepared data that was used in the paper.
+To use the prepared data, set use_prepared_data=TRUE (this is the default option). To run the code yourself locally, set use_prepared_data=FALSE
+On a regular desktop computer, the entire program if (use_prepared_data=FALSE) should take around 10 hours.
+List of packages that you need to install before running the code is provided below.
+
+To Run:
+1. Set the working directory to the main folder (Zarekarizi-flood-flood-home-elevate).
+2. set use_prepared_data
+To do so:
+1. If on RStudio, open the README.md file. Then on the menu bar, go to
+Session-->Set Working Directory-->To Source File Location
+2. If on RStudio, on the lower right box, open "Zarekarizi-Home-Elevation"
+Then, click on More --> Set as Working Directory
+3. On console, type the following command:
+setwd("~/.../../../../Zarekarizi-Home-Elevation")
+3. Run (by clicking on Source in Rstudio)
+What happens next:
+R will go through all the scripts one by one (S01_XLRM.R all the way to  S33_SA_radialPlot_dr_range.R)
+After each script is done, there will be a message om screen reporting that script is done.
+The scripts will use the input data saved in the folder called "Input_Data"
+Outputs:
+1. Figures are saved in Figures directory under the main folder
+2. Data are saved in the Output_Data folder under the main directory
+Requirements before running
+You will need R and these packages: lattice,Kendall,ismev,evdbayes,evir,
+evd,lhs,fields,plotrix,lhs,rpart,rpart.plot,DEoptim,prim,truncnorm,sdtoolkit,sensitivity,pracma
 
 # Contacts 
-mahkameh Zarekarizi mxz414@psu.edu and mahkameh.zare@gmail.com
-
+Mahkameh Zarekarizi mxz414@psu.edu and mahkameh.zare@gmail.com
+Vivek Srikrishnan vxs914@psu.edu
 Klaus Keller kzk10@psu.edu
 
 # License

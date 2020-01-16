@@ -21,14 +21,7 @@
 ##==============================================================================
 ## Instructions to run:
 ## 1. If you have not already done so, change the working directory to the main 
-##    folder (Zarekarizi-Home-Elevation)
-##    To do so:
-##      1. If on RStudio, open the README.md file. Then on the menu bar, go to 
-##         Session-->Set Working Directory-->To Source File Location
-##      2. If on RStudio, on the lower right box, open "Zarekarizi-Home-Elevation"
-##         Then, click on More --> Set as Working Directory
-##      3. On console, type the following command: 
-##         setwd("~/.../../../../Zarekarizi-Home-Elevation") 
+##    folder (Zarekarizi-Home-Elevation). You can do so by setwd("~/.../../../../Zarekarizi-Home-Elevation") 
 ## 2. To Run:
 ##      1. Click on Source button or, on console, type: Source("../../....R")
 ## 3. Outputs:
