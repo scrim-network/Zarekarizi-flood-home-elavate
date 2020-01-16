@@ -1,11 +1,21 @@
 # Neglecting Uncertainties Leads to Suboptimal Decisions About Home-Owners Flood Risk Management
 
-Mahkameh Zarekarizi1*, Vivek Srikrishnan1, and Klaus Keller1,2
+Authors: Mahkameh Zarekarizi (1)*, Vivek Srikrishnan (1), and Klaus Keller (1,2)
 
 1 Earth and Environmental Systems Institute, the Pennsylvania State University, University Park, PA, USA
 2 Department of Geosciences, the Pennsylvania State University, University Park, PA, USA
 
 * Corresponding author
+=======
+Mahkameh Zarekarizi*(1), Vivek Srikrishnan (1), and Klaus Keller (1,2)
+
+1 Earth and Environmental Systems Institute, the Pennsylvania State University, 
+University Park, PA, USA
+2 Department of Geosciences, the Pennsylvania State University, University Park, PA, USA
+
+* Corresponding author 
+
+>>>>>>> 89e777ca007e196709fbb026dbf78420499e3bab
 
 Homeowners around the world elevate houses to manage flood risks. Deciding how high to elevate the house poses a nontrivial decision problem. The U.S. Federal Emergency Management Agency (FEMA) recommends elevating a house to the Base Flood Elevation (the elevation of the 100-yr flood) plus a freeboard. This recommendation neglects many uncertainties. Here we use a multi-objective robust decision-making framework to analyze this decision in the face of deep uncertainties. We find strong interactions between the economic, engineering, and Earth science uncertainties, illustrating the need for an integrated analysis. We show that considering deep uncertainties surrounding flood hazards, the discount rate, the house lifetime, and the fragility increases the economically optimal house elevation to values well above FEMA’s recommendation. An improved decision-support for home-owners has the potential to drastically improve decisions and outcomes. 
 
