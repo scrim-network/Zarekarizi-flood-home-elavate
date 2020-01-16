@@ -21,8 +21,11 @@ Homeowners around the world elevate houses to manage flood risks. Deciding how h
 # Citing the code
 Until the paper is published, please cite our preprint at this link: 
 
+# System requirement 
+To run this program you will need R and the following packages: lattice,Kendall,ismev,evdbayes,evir,evd,lhs,fields,plotrix,lhs,rpart,rpart.plot,DEoptim,prim,truncnorm,sdtoolkit,sensitivity,pracma
+
 # How to run the code 
-Instructions to run:
+##General description
 This rep is a package of multiple scripts indicated in the order they will be needed. For example, S1_....R indicates step 1.
 The entire package is controled by main_script.R. This script contains a swtich that gives you freedom to run the entire package locally on your machine or use the prepared data that was used in the paper.
 To use the prepared data, set use_prepared_data=TRUE (this is the default option). To run the code yourself locally, set use_prepared_data=FALSE
@@ -48,8 +51,7 @@ Outputs:
 1. Figures are saved in Figures directory under the main folder
 2. Data are saved in the Output_Data folder under the main directory
 Requirements before running
-You will need R and these packages: lattice,Kendall,ismev,evdbayes,evir,
-evd,lhs,fields,plotrix,lhs,rpart,rpart.plot,DEoptim,prim,truncnorm,sdtoolkit,sensitivity,pracma
+
 
 # Contacts 
 Mahkameh Zarekarizi mxz414@psu.edu and mahkameh.zare@gmail.com
