@@ -53,7 +53,9 @@ evd,lhs,fields,plotrix,lhs,rpart,rpart.plot,DEoptim,prim,truncnorm,sdtoolkit,sen
 
 # Contacts 
 Mahkameh Zarekarizi mxz414@psu.edu and mahkameh.zare@gmail.com
+
 Vivek Srikrishnan vxs914@psu.edu
+
 Klaus Keller kzk10@psu.edu
 
 # License
