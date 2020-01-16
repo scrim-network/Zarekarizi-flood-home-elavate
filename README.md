@@ -25,7 +25,8 @@ Until the paper is published, please cite our preprint at this link:
 To run this program you will need R and the following packages: lattice,Kendall,ismev,evdbayes,evir,evd,lhs,fields,plotrix,lhs,rpart,rpart.plot,DEoptim,prim,truncnorm,sdtoolkit,sensitivity,pracma
 
 # How to run the code 
-##General description
+General description:
+
 This rep is a package of multiple scripts indicated in the order they will be needed. For example, S1_....R indicates step 1.
 The entire package is controled by main_script.R. This script contains a swtich that gives you freedom to run the entire package locally on your machine or use the prepared data that was used in the paper.
 To use the prepared data, set use_prepared_data=TRUE (this is the default option). To run the code yourself locally, set use_prepared_data=FALSE
@@ -42,12 +43,17 @@ Session-->Set Working Directory-->To Source File Location
 Then, click on More --> Set as Working Directory
 3. On console, type the following command:
 setwd("~/.../../../../Zarekarizi-Home-Elevation")
-3. Run (by clicking on Source in Rstudio)
+4. Run (by clicking on Source in Rstudio)
+
+
 What happens next:
+
 R will go through all the scripts one by one (S01_XLRM.R all the way to  S33_SA_radialPlot_dr_range.R)
 After each script is done, there will be a message om screen reporting that script is done.
 The scripts will use the input data saved in the folder called "Input_Data"
+
 Outputs:
+
 1. Figures are saved in Figures directory under the main folder
 2. Data are saved in the Output_Data folder under the main directory
 Requirements before running
