@@ -6,7 +6,7 @@ Authors: Mahkameh Zarekarizi (1)*, Vivek Srikrishnan (1), and Klaus Keller (1,2)
 2 Department of Geosciences, the Pennsylvania State University, University Park, PA, USA
 
 * Corresponding author
-=======
+
 Mahkameh Zarekarizi*(1), Vivek Srikrishnan (1), and Klaus Keller (1,2)
 
 1 Earth and Environmental Systems Institute, the Pennsylvania State University, 
