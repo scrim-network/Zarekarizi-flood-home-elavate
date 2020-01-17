@@ -161,9 +161,6 @@ if(!use_prepared_data){ #If you are planning to use the pre-generated data, do n
 source("./Source_Code/S19_Community_Analysis.R") ## Script creates plots with for comparing FEMA, with-uncertainty, and without-uncertainty strategies 
 print('Step19 DONE: Houses in which FEMA does not pass B/C test are classified with CART')
 
-source("./Source_Code/S20_CART_FEMA.R") ## Script aims at classifying houses in which FEMA's recommendation does not pass the benefit-to-cost test (using CART).
-print('Step20 DONE: Houses that are recommended for elevating are classified with PRIM')
-
 source("./Source_Code/S21_Discount_Rate_Timeseries.R") 
 print('Step21 DONE: Houses in which FEMA does not pass B/C test are classified with PRIM')
 
