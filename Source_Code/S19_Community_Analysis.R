@@ -39,7 +39,7 @@
 main_path=getwd()
 
 # Load the results for the community created in S16_Many_Houses_CBA.R 
-load(paste(main_path,"/",load_path,"/House_case_objectives/Hypothetical_Houses.RData",sep='')) 
+load(paste(main_path,"/",load_path,"/House_case_objectives/Hypothetical_houses.RData",sep='')) 
 n_houses=length(opt_bc)
 
 # Plot scatter plot of FEMA recommended height versus considering-uncertainty height 
