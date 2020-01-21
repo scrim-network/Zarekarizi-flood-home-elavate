@@ -19,7 +19,7 @@ University Park, PA, USA
 Homeowners around the world elevate houses to manage flood risks. Deciding how high to elevate the house poses a nontrivial decision problem. The U.S. Federal Emergency Management Agency (FEMA) recommends elevating a house to the Base Flood Elevation (the elevation of the 100-yr flood) plus a freeboard. This recommendation neglects many uncertainties. Here we use a multi-objective robust decision-making framework to analyze this decision in the face of deep uncertainties. We find strong interactions between the economic, engineering, and Earth science uncertainties, illustrating the need for an integrated analysis. We show that considering deep uncertainties surrounding flood hazards, the discount rate, the house lifetime, and the fragility increases the economically optimal house elevation to values well above FEMA’s recommendation. An improved decision-support for home-owners has the potential to drastically improve decisions and outcomes. 
 
 # Citing the code
-Until the paper is published, please cite our preprint at this link: 
+Until the paper is published, please cite our preprint at this link:https://arxiv.org/abs/2001.06457  
 
 # System requirement 
 To run this program you will need R and the following packages: lattice,Kendall,ismev,evdbayes,evir,evd,lhs,fields,plotrix,lhs,rpart,rpart.plot,DEoptim,prim,truncnorm,sdtoolkit,sensitivity,pracma
