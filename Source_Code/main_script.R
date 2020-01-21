@@ -75,31 +75,31 @@ tmp <- paste0(getwd(), "/Output_Data/sobol_outputs/")
 if(dir.exists(tmp)==F){dir.create(tmp, recursive=T)}
 
 
-'
-# List of packages you will need to install (uncomment if you have not them installed)
-# If on a server, you may need to try this: install.packages("<name of package>", repos="http://cran.r-project.org", lib="~/local/R_libs/")  
-install.packages("lattice")
-install.packages("Kendall")
-install.packages("ismev")
-install.packages("evdbayes")
-install.packages("evir")
-install.packages("evd")
-install.packages("lhs")
-install.packages("fields")
-install.packages("plotrix")
-install.packages("lhs")
-install.packages("rpart")
-install.packages("rpart.plot")
-install.packages("DEoptim")
 
-install.packages("prim") # You may needed to go to a third party site and download a compatibility package for my Mac
-# You do not need this package for the main program. You will need it for classification and a figure in the suplementary materials. 
+# # List of packages you will need to install (uncomment if you have not them installed)
+# # If on a server, you may need to try this: install.packages("<name of package>", repos="http://cran.r-project.org", lib="~/local/R_libs/")  
+# install.packages("lattice")
+# install.packages("Kendall")
+# install.packages("ismev")
+# install.packages("evdbayes")
+# install.packages("evir")
+# install.packages("evd")
+# install.packages("lhs")
+# install.packages("fields")
+# install.packages("plotrix")
+# install.packages("lhs")
+# install.packages("rpart")
+# install.packages("rpart.plot")
+# install.packages("DEoptim")
+# 
+# install.packages("prim") # You may needed to go to a third party site and download a compatibility package for my Mac
+# # You do not need this package for the main program. You will need it for classification and a figure in the suplementary materials. 
+# 
+# install.packages("truncnorm")
+# install.packages("sdtoolkit")
+# install.packages("sensitivity")
+# install.packages("pracma")
 
-install.packages("truncnorm")
-install.packages("sdtoolkit")
-install.packages("sensitivity")
-install.packages("pracma")
-'
 
 # Start running the functions 
 source('./Source_Code/S01_XLRM.R') ## This script generates the XLRM diagram 
