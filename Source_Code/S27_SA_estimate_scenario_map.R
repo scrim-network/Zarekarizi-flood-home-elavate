@@ -25,7 +25,6 @@ main_path=getwd()
 source(paste(main_path,"/Source_Code/Functions/random_discount.R",sep=""))
 obs_discount <- readRDS(paste(main_path,"/Input_Data/discount.rds",sep=""))
 
-
 Depth_1 <-           c(0, 1.64, 3.28, 4.92, 6.56, 9.84, 13.12, 16.40)
 Damage_Factors_1 <- c(0.20, 0.44, 0.58, 0.68, 0.78, 0.85, 0.92, 0.96)*100
 Depth_2<-c(-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24)
@@ -109,7 +108,6 @@ mymodel_onesample <- function(mu01,sigma01,xi01,dd_err,dr_ind,life,
   return(expected_damages)
 }
 
-
 # Packages/functions to load 
 library(sensitivity)
 source(paste(main_path,"/Source_Code/Functions/House_chars.R",sep=""))
@@ -181,80 +179,72 @@ sob_samp2[, 'life'] <- map_range(sample(life_vector,n_samp,replace = TRUE),bd_li
 
 dr_options=c('rw_discount','mrv_discount','drift_discount')
 dd_options=c('hazus','eu')
+
 for(dr_ind in 1:3){
-for(dd_ind in 1:2){
-print(paste('Discount rate model=',dr_options[dr_ind],'and Depth-Damage is',dd_options[dd_ind]))
-sobolout1 <- paste0(main_path,"/Output_Data/sobol_outputs/Sobol-1_",strsplit(dr_options[dr_ind],'_')[[1]][1],"_",dd_options[dd_ind],".txt")
-sobolout2 <- paste0(main_path,"/Output_Data/sobol_outputs/Sobol-2_",strsplit(dr_options[dr_ind],'_')[[1]][1],"_",dd_options[dd_ind],".txt")
+  for(dd_ind in 1:2){
+    print(paste('Discount rate model=',dr_options[dr_ind],'and Depth-Damage is',dd_options[dd_ind]))
+    sobolout1 <- paste0(main_path,"/Output_Data/sobol_outputs/Sobol-1_",strsplit(dr_options[dr_ind],'_')[[1]][1],"_",dd_options[dd_ind],".txt")
+    sobolout2 <- paste0(main_path,"/Output_Data/sobol_outputs/Sobol-2_",strsplit(dr_options[dr_ind],'_')[[1]][1],"_",dd_options[dd_ind],".txt")
+    Dfs_model=(compute_dfactors(do.call(dr_options[dr_ind],list(log(obs_discount[,2]),200,1e4))))
 
-Dfs_model=(compute_dfactors(do.call(dr_options[dr_ind],list(log(obs_discount[,2]),200,1e4))))
+    if(dd_options[dd_ind]=='hazus'){
+      Damage_Factors=Damage_Factors_2
+    }else if(dd_options[dd_ind]=='eu'){
+      Damage_Factors=Damage_Factors_1
+    }else{
+        stop('ERROR')
+    }
 
-if(dd_options[dd_ind]=='HAZUS'){Damage_Factors=Damage_Factors_2
-}else{Damage_Factors=Damage_Factors_1}
-
-
-
-sens_out <- sobolSalt(model = mymodel, 
+    sens_out <- sobolSalt(model = mymodel, 
                       sob_samp1, 
                       sob_samp2, 
                       scheme="B", 
                       nboot =n_boot,
                       conf=0.95,
-                      bds=bds
-)
-print(sens_out)
+                      bds=bds)
+    print(sens_out)
 
-# From Vivek's code 
-# write output file as in Tony and Perry's analysis codes
-headers.1st.tot <- matrix(c('Parameter', 'S1', 'S1_conf_low', 'S1_conf_high',
+    # From Vivek's code 
+    # write output file as in Tony and Perry's analysis codes
+    headers.1st.tot <- matrix(c('Parameter', 'S1', 'S1_conf_low', 'S1_conf_high',
                             'ST', 'ST_conf_low', 'ST_conf_high'), nrow=1)
-parnames=c("mu","sigma","xi","dd","dr","life")
-output.1st.tot  <- data.frame(cbind( parnames,
+    parnames=c("mu","sigma","xi","dd","dr","life")
+    output.1st.tot  <- data.frame(cbind( parnames,
                                      sens_out$S[,1],
                                      sens_out$S[,4],
                                      sens_out$S[,5],
                                      sens_out$T[,1],
                                      sens_out$T[,4],
                                      sens_out$T[,5]))
-write.table(headers.1st.tot, file=sobolout1, append=FALSE, sep = " ",
+    write.table(headers.1st.tot, file=sobolout1, append=FALSE, sep = " ",
             quote=FALSE    , row.names = FALSE , col.names=FALSE)
-write.table(output.1st.tot , file=sobolout1, append=TRUE , sep = " ",
+    write.table(output.1st.tot , file=sobolout1, append=TRUE , sep = " ",
             quote=FALSE    , row.names = FALSE , col.names=FALSE)
-headers.2nd     <- matrix(c('Parameter_1', 'Parameter_2', 'S2', 'S2_conf_low','S2_conf_high'), nrow=1)
-output2.indices <- sens_out$S2[,1]
-output2.conf1   <- sens_out$S2[,4]
-output2.conf2   <- sens_out$S2[,5]
-# 2nd order index names ordered as: (assuming 39 parameters)
-# 1. parnames[1]-parnames[2]
-# 2. parnames[1]-parnames[3]
-# 3. parnames[1]-parnames[4]
-# ... etc ...
-# 38. parnames[1]-parnames[39] << N=2:39 => p1-p[N]
-# 39. parnames[2]-parnames[3]
-# 40. parnames[2]-parnames[4]
-# 38+37. parnames[2]-parnames[39] << N=3:39 => p2-p[N]
-# ... etc ...
-names2  <- rownames(sens_out$S2)
-names2a <- rep(NA, length(names2))
-names2b <- rep(NA, length(names2))
-cnt <- 1
-for (i in seq(from=1, to=(length(parnames)-1), by=1)) {           # i = index of first name
-  for (j in seq(from=(i+1), to=(length(parnames)), by=1)) {   # j = index of second name
-    names2a[cnt] <- parnames[i]
-    names2b[cnt] <- parnames[j]
-    cnt <- cnt+1
-  }
-}
+    headers.2nd     <- matrix(c('Parameter_1', 'Parameter_2', 'S2', 'S2_conf_low','S2_conf_high'), nrow=1)
+    output2.indices <- sens_out$S2[,1]
+    output2.conf1   <- sens_out$S2[,4]
+    output2.conf2   <- sens_out$S2[,5]
+    names2  <- rownames(sens_out$S2)
+    names2a <- rep(NA, length(names2))
+    names2b <- rep(NA, length(names2))
+    cnt <- 1
+    for (i in seq(from=1, to=(length(parnames)-1), by=1)) {           # i = index of first name
+      for (j in seq(from=(i+1), to=(length(parnames)), by=1)) {   # j = index of second name
+        names2a[cnt] <- parnames[i]
+        names2b[cnt] <- parnames[j]
+        cnt <- cnt+1
+      }
+    }
 
-output.2nd <- data.frame(cbind( names2a,
+    output.2nd <- data.frame(cbind( names2a,
                                 names2b,
                                 output2.indices,
                                 output2.conf1,
                                 output2.conf2 ))
-write.table(headers.2nd    , file=sobolout2, append=FALSE , sep = " ",
+    write.table(headers.2nd    , file=sobolout2, append=FALSE , sep = " ",
             quote=FALSE    , row.names = FALSE , col.names=FALSE)
-write.table(output.2nd     , file=sobolout2, append=TRUE , sep = " ",
+    write.table(output.2nd     , file=sobolout2, append=TRUE , sep = " ",
             quote=FALSE    , row.names = FALSE , col.names=FALSE)
-}
+  }
 }
 

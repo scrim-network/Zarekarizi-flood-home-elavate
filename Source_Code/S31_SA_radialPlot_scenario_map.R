@@ -54,7 +54,7 @@ plot(c(-1,1),c(-1,1),bty="n",xlab="",ylab="",xaxt="n",yaxt="n",type="n")
 
 # Possible scenarions 
 dr_options=c('rw_discount','mrv_discount','drift_discount')
-dd_options=c('HAZUS','EU')
+dd_options=c('hazus','eu')
 
 for(dr_ind in 1:3){
   for(dd_ind in 1:2){
