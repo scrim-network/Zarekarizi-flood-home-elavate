@@ -155,7 +155,7 @@ print('Step17 DONE: Plots to compare strategies were saved')
 
 if(!use_prepared_data){ #If you are planning to use the pre-generated data, do not run this script. This script takes a long time to run.
   source("./Source_Code/S18_Many_Houses_CBA.R") ## Script generates many houses and analyzes objectives for each of those houses. 
-  print('Step18 DONE: Houses that are recommended for elevating are classified with CART')
+  print('Step18 DONE: CBA was conducted for 1000 hosues')
 }
 
 source("./Source_Code/S19_Community_Analysis.R") ## Script creates plots with for comparing FEMA, with-uncertainty, and without-uncertainty strategies 
