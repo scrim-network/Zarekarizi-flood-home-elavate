@@ -29,15 +29,6 @@ library(evd) # We would use pgev, qgev from this package
 ################################################################################
 ################################################################################
 ################################################################################
-# Functions
-getmode <- function(v) {
-  uniqv <- unique(v)
-  uniqv[which.max(tabulate(match(v, uniqv)))]
-}
-
-################################################################################
-################################################################################
-################################################################################
 # This function calculates the safety of a house. Safety is defined as the 
 # Probability of not being flooded at all during the lifetime of the house
 lifetime_safety <- function(life_span,mu,sigma,xi,House_Initial_Stage,delta_h){

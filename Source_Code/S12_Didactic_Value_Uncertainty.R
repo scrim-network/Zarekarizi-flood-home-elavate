@@ -54,10 +54,8 @@ library(lhs)
 # -------------------------------------------------------------
 # Functions----------------------------------------------------
 # -------------------------------------------------------------
-getmode <- function(v) {
-  uniqv <- unique(v)
-  uniqv[which.max(tabulate(match(v, uniqv)))]
-}
+source(paste(main_path,'/Source_Code/Functions/MAP_function.R',sep=""))
+
 # -------------------------------------------------------------
 expected_damages <- function(Struc_Value,House_Initial_Stage,
                              delta_h,life_span,disc_fac,
@@ -150,9 +148,10 @@ Depth<-c(-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,
 Damage_Factors<-c(0,0,4,8,12,15,20,23,28,33,37,43,48,51,53,55,57,59,61,63,65,67,69,71,73,75,77,79,81)/100
 
 # Calculate GEV parameters (choosing the mode; the most probable prediction)
-mu=getmode(mu_chain)
-xi=getmode(xi_chain)
-sigma=getmode(sigma_chain) 
+pars_hat = find_MAP(mu_chain,sigma_chain,xi_chain)
+mu = pars_hat[1]
+sigma = pars_hat[2]
+xi = pars_hat[3]
 
 # Given the above parameters, calculate the base flood elevation
 BFE=qgev(p=0.99,shape=xi,scale=sigma,loc=mu) # FEMA BFE=35.3

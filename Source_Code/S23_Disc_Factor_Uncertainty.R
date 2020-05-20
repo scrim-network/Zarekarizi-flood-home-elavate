@@ -93,8 +93,13 @@ lines(0:100,rw_df_cer,type="l",col=myredBold,lwd=0.8)
 lines(0:100,mrv_df_cer,type="l",col="blue",lwd=0.8)
 lines(0:100,drft_df_cer,type="l",col="green",lwd=0.8)
 
-legend(5,0.15,c("Fixed 4%/year",'Random walk certainty-equivalent','Random walk 95% C.I.','Mean reverting certainty-equivalent',
-               'Mean reverting 95% C.I.','Model with background trend certainty equivalent','Model with background trend'),
+legend(5,0.15,c("Fixed 4%/year",
+                'Random walk certainty-equivalent',
+                'Random walk 95% C.I.',
+                'Mean reverting certainty-equivalent',
+               'Mean reverting 95% C.I.',
+               'Model with background trend certainty equivalent',
+               'Model with background trend 95% C.I.'),
        col=c("black",myredBold,myred,"blue",myblue,mygreenBold,mygreen),lty=c(1,1,NA,1,NA,1,NA),pch=c(NA,NA,22,NA,22,NA,22),
        bty="n",pt.bg=c(NA,NA,myred,NA,myblue,NA,mygreen),pt.cex=c(NA,NA,2,NA,2,NA,2))
 dev.off()

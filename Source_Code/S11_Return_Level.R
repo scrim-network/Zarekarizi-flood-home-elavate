@@ -48,11 +48,7 @@ library('DEoptim')
 #--------------------------------------------------------------
 # Functions----------------------------------------------------
 #--------------------------------------------------------------
-## function to get the mode of a distribution
-getmode <- function(v) {
-  uniqv <- unique(v)
-  uniqv[which.max(tabulate(match(v, uniqv)))]
-}
+source(paste(main_path,'/Source_Code/Functions/MAP_function.R',sep=""))
 
 ## function to estimate the return level from GEV distribution
 myreturnlevel <- function(t,mu,sigma,xi){
@@ -115,10 +111,13 @@ rl_500[rl_500<rl_500_lb]=NA
 rl_500[rl_500>rl_500_ub]=NA
 h500<-hist(rl_500,25,plot = F)
 
-# Estimate the return levels ignoring uncertainty (estimated from mode of the parameter chains)
-sigma_cert=getmode(sigma_chain)
-mu_cert=getmode(mu_chain)
-xi_cert=getmode(xi_chain)
+# Estimate the return levels ignoring uncertainty (estimated from MAP)
+pars_hat = find_MAP(mu_chain,sigma_chain,xi_chain)
+mu_cert = pars_hat[1]
+sigma_cert = pars_hat[2]
+xi_cert = pars_hat[3]
+
+# return levels under ignoring uncertainty 
 MC_rl_cert <- myreturnlevel(plot_rps,mu_cert,sigma_cert,xi_cert)
 
 ###############################

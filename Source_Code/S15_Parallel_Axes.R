@@ -41,7 +41,7 @@ set.seed(0)
 mygreen <- rgb(44/255, 185/255, 95/255, 1) #Colors we will use in the plot
 myblue <- rgb(0/255, 128/255, 1, 1)
 myred <- rgb(1, 102/255, 102/255, 0.4)
-run_function=0 # In case you later want to run the script but not run the optimization function, turn this off
+run_function=1 # In case you later want to run the script but not run the optimization function, turn this off
 
 # Load libraries, data, and codes 
 library(evd) # We would use pgev, qgev from this package
@@ -49,17 +49,13 @@ library(fields) #We need this library later when we need to add colorbar
 source(paste(main_path,'/Source_Code/Functions/Cost_Damage_Calculator.R',sep=''))
 load(paste(main_path,"/",load_path,"/GEV_Parameters_MCMC.RData",sep=''))
 discount <- readRDS(paste(main_path,"/Input_Data/discount.rds",sep=""))
+source(paste(main_path,'/Source_Code/Functions/MAP_function.R',sep=""))
 
-# Functions.
-getmode <- function(v) {
-  uniqv <- unique(v)
-  uniqv[which.max(tabulate(match(v, uniqv)))]
-}
-
-# Calculate GEV parameters under certainty (choosing the mode; the most probable prediction)
-mu=getmode(mu_chain)
-xi=getmode(xi_chain)
-sigma=getmode(sigma_chain) 
+# Calculate GEV parameters (choosing the MAP; the best-guess)
+pars_hat = find_MAP(mu_chain,sigma_chain,xi_chain)
+mu = pars_hat[1] # Location parameter used for ignoring-uncertainty scenario
+xi = pars_hat[3] # Shape parameter used for ignoring-uncertainty scenario
+sigma = pars_hat[2] # Scale parameter used for ignoring-uncertainty scenario
 
 # Given the above parameters, calculate the base flood elevation
 BFE=qgev(p=0.99,shape=xi,scale=sigma,loc=mu) 

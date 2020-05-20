@@ -1,4 +1,4 @@
-house_charactersitics <- function(i=6){
+house_charactersitics <- function(i=7){
 
 # In the paper, we are focusing on three specific hypothetical houses. 
 # Below is the information of these houses:
@@ -9,7 +9,8 @@ houses=rbind(
   c(1000,277000,-4.7,30), # i=3: Considering uncertainty increases the optimal elevation and it totally makes sense.
   c(1500,320000,-6,30),
   c(1500,300000,-6,60),
-  c(2000,320000,-4,30)
+  c(2000,320000,-4,30),
+  c(2000,350000,-4,30)
 )
 
 # Set i to the number of the house you would like to run the program for.
