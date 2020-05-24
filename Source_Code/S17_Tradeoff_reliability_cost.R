@@ -42,7 +42,7 @@ myblue <- rgb(0/255, 128/255, 1,0.5)
 myred <- rgb(1, 102/255, 102/255, 0.5)
 mygray <- rgb(190/255, 190/255, 190/255, 1)
 mygray="gray"
-run_function=1
+run_function=0
 
 # Required libraries, data, and functions 
 library(evd) # We would use pgev, qgev from this package
@@ -194,20 +194,20 @@ text(x2,(y1+y4)/2,'It is not practical to \nraise a house by less than 3 feet',s
 # Add points for optimal policies without uncertainty 
 mymin=which.min(total_cost_bg)
 if(mymin==1){
-  points(x=x1,y=safety_bg[mymin],pch=0,cex=2,col="blue",xpd=T)
+  points(x=x1,y=safety_bg[mymin],pch=0,cex=1.9,col="blue",xpd=T)
 }else{
-  points(x=construction_cost_seq[mymin]/1000,y=safety_bg[mymin],pch=0,cex=2,col="blue",xpd=T)
+  points(x=construction_cost_seq[mymin]/1000,y=safety_bg[mymin],pch=0,cex=1.9,col="blue",xpd=T)
 }
 
 # Add points for optimal policies with uncertainty 
 mymin=which.min(totcost_unc_mean)
 if(mymin==1){
-  points(x=x1,y=y4,pch=0,cex=2,col="red")
+  points(x=x1,y=y4,pch=0,cex=1.9,col="red")
 }else{
-  points(x=construction_cost_seq[mymin]/1000,y=safety_unc_mean[mymin],pch=0,cex=2,col="red")
+  points(x=construction_cost_seq[mymin]/1000,y=safety_unc_mean[mymin],pch=0,cex=1.9,col="red")
 }
 
-points(FEMA_Recomm_cost/1000,FEMA_Recomm_safety,pch=9,col="darkorchid3",cex=2)
+points(FEMA_Recomm_cost/1000,FEMA_Recomm_safety,pch=9,col="darkorchid3",cex=1.9)
 points(x1,1,pch=8,cex=2,xpd=T,col="darkgoldenrod2")
 
 # Add legend 

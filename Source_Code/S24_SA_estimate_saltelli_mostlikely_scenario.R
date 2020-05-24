@@ -27,7 +27,7 @@
 ##      1. A pdf or jpeg file in "Figures" directory that contains the plot
 ##==============================================================================
 
-set.seed(0)
+set.seed(10)
 main_path=getwd()
 source(paste(main_path,"/Source_Code/Functions/random_discount.R",sep=""))
 
@@ -128,7 +128,6 @@ n_boot <- 1e4 # number of bootstrap samples
 sqft=house_charactersitics()[1,'sqft']
 Struc_Value=house_charactersitics()[1,'Struc_Value']
 del=house_charactersitics()[1,'del']
-life_span=house_charactersitics()[1,'life_span']
 
 # Load required data 
 load(paste(main_path,"/",load_path,"/GEV_Parameters_MCMC.RData",sep=""))

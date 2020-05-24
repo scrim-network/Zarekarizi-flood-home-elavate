@@ -1,4 +1,4 @@
-house_charactersitics <- function(i=7){
+house_charactersitics <- function(i=8){
 
 # In the paper, we are focusing on three specific hypothetical houses. 
 # Below is the information of these houses:
@@ -10,7 +10,8 @@ houses=rbind(
   c(1500,320000,-6,30),
   c(1500,300000,-6,60),
   c(2000,320000,-4,30),
-  c(2000,350000,-4,30)
+  c(2000,350000,-4,30),
+  c(1500,350000,-4,30)
 )
 
 # Set i to the number of the house you would like to run the program for.

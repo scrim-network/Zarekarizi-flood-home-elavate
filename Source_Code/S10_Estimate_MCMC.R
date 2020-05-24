@@ -57,7 +57,7 @@ set.seed(1)
 
 mat <- diag(c(1000,100,1))
 pn <- prior.norm(mean = c(0,0,0), cov = mat)
-pos<-posterior(50000, init = c(5,1,0.1), prior = pn, lh = "gev",data = AnnMaxWL[,2],psd = c(0.2,.1,.1))
+pos<-posterior(100000, init = c(5,1,0.1), prior = pn, lh = "gev",data = AnnMaxWL[,2],psd = c(0.2,.1,.1))
 
 mu=(pos[,1])
 logsigma=(pos[,2])

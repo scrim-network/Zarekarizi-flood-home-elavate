@@ -19,7 +19,7 @@
 ## along with this file.  If not, see <http://www.gnu.org/licenses/>.
 ##==============================================================================
 
-set.seed(0)
+set.seed(10)
 main_path=getwd()
 
 mymodel <- function(X,bds){
