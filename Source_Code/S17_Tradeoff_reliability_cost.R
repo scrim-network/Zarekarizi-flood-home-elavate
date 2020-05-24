@@ -42,7 +42,7 @@ myblue <- rgb(0/255, 128/255, 1,0.5)
 myred <- rgb(1, 102/255, 102/255, 0.5)
 mygray <- rgb(190/255, 190/255, 190/255, 1)
 mygray="gray"
-run_function=0
+run_function=1
 
 # Required libraries, data, and functions 
 library(evd) # We would use pgev, qgev from this package
