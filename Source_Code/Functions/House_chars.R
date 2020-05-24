@@ -11,7 +11,7 @@ houses=rbind(
   c(1500,300000,-6,60),
   c(2000,320000,-4,30),
   c(2000,350000,-4,30),
-  c(1500,350000,-4,30)
+  c(1500,300000,-4,30)
 )
 
 # Set i to the number of the house you would like to run the program for.

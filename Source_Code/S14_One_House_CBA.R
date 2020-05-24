@@ -84,7 +84,7 @@ if(run_function==1){ # Run the findopt_UNC function stored in Cost_Damage_Calcul
                             nsow=length(xi_chain),
                             discount,
                             save_return=1,
-                            n_strategy=100,
+                            n_strategy=20,
                             verbose=TRUE,
                             ddUnc='deep', #   'eu',
                             lifeUnc='weibull', #   'weibull',

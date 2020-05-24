@@ -520,7 +520,7 @@ findopt_UNC <- function(sqft, # square footage of the buildig
         print(paste('Evaluating objective II (safety) for strategy #',toString(i),'out of',toString(length(delta_h_seq)),'strategies'))
         }
         for(j in 1:nsow){
-                         safety_ens[i,j]=lifetime_safety(life_span,
+                         safety_ens[i,j]=lifetime_safety(floor(SOWs[j,205]),
                                                        SOWs[j,1],SOWs[j,2],SOWs[j,3],
                                                        House_Initial_Stage,
                                                        delta_h_seq[i]
