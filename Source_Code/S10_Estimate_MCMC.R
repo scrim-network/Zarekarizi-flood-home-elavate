@@ -42,6 +42,13 @@ main_path=getwd()
 library(evdbayes)
 library(ismev)
 
+
+#--------------------------------------------------------------
+# Functions----------------------------------------------------
+#--------------------------------------------------------------
+## functions
+source(paste(main_path,'/Source_Code/Functions/MAP_function.R',sep=""))
+
 # Load Annual Maximum Data  
 load(paste(main_path,"/",load_path,"/AnnMaxWL.RData",sep=""))
 
@@ -50,7 +57,7 @@ set.seed(1)
 
 mat <- diag(c(1000,100,1))
 pn <- prior.norm(mean = c(0,0,0), cov = mat)
-pos<-posterior(50000, init = c(5,1,0.1), prior = pn, lh = "gev",data = AnnMaxWL[,2],psd = c(0.2,.1,.1))
+pos<-posterior(100000, init = c(5,1,0.1), prior = pn, lh = "gev",data = AnnMaxWL[,2],psd = c(0.2,.1,.1))
 
 mu=(pos[,1])
 logsigma=(pos[,2])
@@ -60,6 +67,13 @@ xi=(pos[,3])
 mu_chain <-mu[(length(xi)-10000+1):length(xi)]
 xi_chain <- xi[(length(xi)-10000+1):length(xi)]
 sigma_chain <- logsigma[(length(logsigma)-10000+1):length(logsigma)]
+
+# print MAP estimates 
+par_hats = find_MAP(mu_chain, sigma_chain, xi_chain)
+mu_hat = par_hats[1]
+sigma_hat = par_hats[2]
+xi_hat = par_hats[3]
+print(paste('MAP estimated parameters are: Mu=',mu_hat,'sigma=',sigma_hat,'xi=',xi_hat))
 
 # Save MCMC chains 
 save(mu_chain,xi_chain,sigma_chain,file=paste(main_path,"/Output_Data/GEV_Parameters_MCMC.RData",sep=""))

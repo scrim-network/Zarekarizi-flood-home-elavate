@@ -41,7 +41,7 @@ myblue <- rgb(0/255, 128/255, 1, 1)
 myred <- rgb(1, 102/255, 102/255, 0.4)
 mygray <- rgb(190/255, 190/255, 190/255, 1)
 mygray="gray"
-run_function=0
+run_function=1
 
 # Required libraries, data, and functions 
 library(evd) # We would use pgev, qgev from this package
@@ -49,17 +49,13 @@ library(plotrix) # For axis.break
 load(paste(main_path,"/",load_path,"/GEV_Parameters_MCMC.RData",sep="")) #Load GEV parameters 
 source(paste(main_path,'/Source_Code/Functions/Cost_Damage_Calculator.R',sep=""))
 discount <- readRDS(paste(main_path,"/Input_Data/discount.rds",sep=""))
+source(paste(main_path,'/Source_Code/Functions/MAP_function.R',sep=""))
 
-# Define new functions 
-getmode <- function(v) {
-  uniqv <- unique(v)
-  uniqv[which.max(tabulate(match(v, uniqv)))]
-}
-
-# Calculate GEV parameters under certainty(choosing the mode; the most probable prediction)
-mu=getmode(mu_chain)
-xi=getmode(xi_chain)
-sigma=getmode(sigma_chain) 
+# Calculate GEV parameters (choosing the MAP; the best-guess)
+pars_hat = find_MAP(mu_chain,sigma_chain,xi_chain)
+mu = pars_hat[1] # Location parameter used for ignoring-uncertainty scenario
+xi = pars_hat[3] # Shape parameter used for ignoring-uncertainty scenario
+sigma = pars_hat[2] # Scale parameter used for ignoring-uncertainty scenario
 
 # Given the above parameters, calculate the base flood elevation
 BFE=qgev(p=0.99,shape=xi,scale=sigma,loc=mu) # FEMA BFE=35.3
@@ -105,8 +101,7 @@ load(filename)
 
 # Start the plot
 pdf(paste(main_path,"/Figures/S16_Tradeoffs_damages_investment.pdf",sep=""), width =2.43, height =2.43)
-#jpeg(paste(main_path,"/Figures/S16_Tradeoffs_damages_investment.jpeg",sep=""),width =3.94, height =3.94,units="in",res=300)
-#png(paste(main_path,"/Figures/S16_Tradeoffs_damages_investment.png",sep=""),width =3.94, height =3.94,units="in",res=300)
+#png(paste(main_path,"/Figures/S16_Tradeoffs_damages_investment.png",sep=""), width =2.43, height =2.43,units="in",res=300)
 
 par(cex=0.5) #Adjust the size 
 
@@ -222,5 +217,6 @@ legend(x4-0.15*x4,y4-0.02*y4,c('Considering uncertainty','Neglecting uncertainty
        lty=c(1,1,1,3,NA,NA,NA,NA),pch=c(NA,NA,NA,NA,0,20,8,9),bty="l",box.lwd=0.5,box.col="gray",cex=0.6,pt.cex = c(NA,NA,NA,NA,1,1,1,1),pt.lwd = c(NA,NA,NA,NA,1,1,0.5,0.5))
 
 
+#dev.off()
 dev.off()
 

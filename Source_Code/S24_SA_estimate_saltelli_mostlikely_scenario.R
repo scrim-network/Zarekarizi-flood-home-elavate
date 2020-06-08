@@ -27,7 +27,7 @@
 ##      1. A pdf or jpeg file in "Figures" directory that contains the plot
 ##==============================================================================
 
-set.seed(0)
+set.seed(10)
 main_path=getwd()
 source(paste(main_path,"/Source_Code/Functions/random_discount.R",sep=""))
 
@@ -128,15 +128,17 @@ n_boot <- 1e4 # number of bootstrap samples
 sqft=house_charactersitics()[1,'sqft']
 Struc_Value=house_charactersitics()[1,'Struc_Value']
 del=house_charactersitics()[1,'del']
-life_span=house_charactersitics()[1,'life_span']
 
 # Load required data 
 load(paste(main_path,"/",load_path,"/GEV_Parameters_MCMC.RData",sep=""))
+source(paste(main_path,'/Source_Code/Functions/MAP_function.R',sep=""))
 
-# Calculate GEV parameters (choosing the mode; the most probable prediction)
-mu=getmode(mu_chain) # Location parameter used for ignoring-uncertainty scenario
-xi=getmode(xi_chain) # Shape parameter used for ignoring-uncertainty scenario
-sigma=getmode(sigma_chain) # Scale parameter used for ignoring-uncertainty scenario
+# Calculate GEV parameters (choosing the MAP; the best-guess)
+pars_hat = find_MAP(mu_chain,sigma_chain,xi_chain)
+mu = pars_hat[1] # Location parameter used for ignoring-uncertainty scenario
+xi = pars_hat[3] # Shape parameter used for ignoring-uncertainty scenario
+sigma = pars_hat[2] # Scale parameter used for ignoring-uncertainty scenario
+
 # Given the above parameters, calculate the base flood elevation. Please note that we calculate the BFE using GEV and we do not use USGS data (in order to be consistent)
 BFE=qgev(p=0.99,shape=xi,scale=sigma,loc=mu) # FEMA BFE=35.3
 # House initial stage (elevation difference with the benchmark of the river bed)

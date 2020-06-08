@@ -48,11 +48,7 @@ library('DEoptim')
 #--------------------------------------------------------------
 # Functions----------------------------------------------------
 #--------------------------------------------------------------
-## function to get the mode of a distribution
-getmode <- function(v) {
-  uniqv <- unique(v)
-  uniqv[which.max(tabulate(match(v, uniqv)))]
-}
+source(paste(main_path,'/Source_Code/Functions/MAP_function.R',sep=""))
 
 ## function to estimate the return level from GEV distribution
 myreturnlevel <- function(t,mu,sigma,xi){
@@ -115,18 +111,19 @@ rl_500[rl_500<rl_500_lb]=NA
 rl_500[rl_500>rl_500_ub]=NA
 h500<-hist(rl_500,25,plot = F)
 
-# Estimate the return levels ignoring uncertainty (estimated from mode of the parameter chains)
-sigma_cert=getmode(sigma_chain)
-mu_cert=getmode(mu_chain)
-xi_cert=getmode(xi_chain)
+# Estimate the return levels ignoring uncertainty (estimated from MAP)
+pars_hat = find_MAP(mu_chain,sigma_chain,xi_chain)
+mu_cert = pars_hat[1]
+sigma_cert = pars_hat[2]
+xi_cert = pars_hat[3]
+
+# return levels under ignoring uncertainty 
 MC_rl_cert <- myreturnlevel(plot_rps,mu_cert,sigma_cert,xi_cert)
 
 ###############################
 ########### PLOT ##############
 ###############################
-#pdf(paste(main_path,"/Figures/S11_Return_Level_Plot.pdf",sep=""), width =3.94, height =2.43)
-#jpeg(paste(main_path,"/Figures/S11_Return_Level_Plot_joel.jpeg",sep=""),width =3.94, height =2.43,units="in",res=300)
-#png(paste(main_path,"/Figures/S11_Return_Level_Plot.png",sep=""),width =3.5, height =2.43,units="in",res=300)
+png(paste(main_path,"/Figures/S11_Return_Level_Plot.png",sep=""),width =3.94, height =2.43,units="in",res=300)
 pdf(paste(main_path,"/Figures/S11_Return_Level_Plot.pdf",sep=""),width =3.94, height =2.43)
 
 # plot high-level variables
@@ -134,7 +131,7 @@ par(cex=0.5,mai=c(0.3,0.4,0.1,0.1))
 par(cex=0.5,fig=c(0,0.7,0.05,1))
 
 ymin=15
-ymax=80
+ymax=60
 xmin=1
 xmax=500
 
@@ -190,10 +187,10 @@ xmax=max(h500$density)
 xmax=xmax+0.1*xmax
 ymean=mean(MC_rl[32,])
 ymean_best_guess=MC_rl_cert[32]
-  
+
 plot(h500$density,h500$mids,ylim=c(ymin,ymax),xlim=c(xmin,xmax),xlab="",ylab="",xaxs="i",yaxs="i",bty="n",xaxt="n",yaxt="n",type="n")
 axis(1,pos=ymin,at=c(xmin,xmax),labels=c(0,signif(xmax,2)),cex.axis=0.8,lwd=0.5)
-mtext("Probability Density",side=1,line=2.5,cex=0.5)
+mtext("Probability density of \n500-year return level",side=1,line=2.5,cex=0.5)
 
 # box around the plot 
 lines(x=c(xmin,xmin),y=c(ymin,ymax))
@@ -209,3 +206,9 @@ lines(x=c(xmin,xmax),y=c(ymean_best_guess,ymean_best_guess),col="blue")
 text(xmin+0.01,ymax-ymax*0.05,"e)",cex=1.5)
 
 dev.off()
+dev.off()
+
+print(paste('100-year return level with considering uncertainty=',ymean))
+print(paste('100-year return level without considering uncertainty=',ymean_best_guess))
+print(paste('Difference is =',(ymean-ymean_best_guess)))
+print(paste('Percent increase =',100*(ymean-ymean_best_guess)/(ymean_best_guess)))

@@ -60,8 +60,8 @@ fixed_factor[i]=exp(-1*(0.04*i))
 #########################
 # same plot in log scale 
 #########################
-#jpeg(paste(main_path,"/Figures/S23_Discount_Factors_Comparision_logScale.jpeg",sep=""),width =3.94, height =2.43,units="in",res=300)
 pdf(paste(main_path,"/Figures/S23_Discount_Factors_Comparision_logScale.pdf",sep=""),width =3.94, height =2.43)
+#png(paste(main_path,"/Figures/S23_Discount_Factors_Comparision_logScale.png",sep=""),width =3.94, height =2.43,units="in",res=300)
 
 ymin=min(apply(rw_df_unc  ,2,quantile,(0.05/2)),
          apply(mrv_df_unc ,2,quantile,(0.05/2)),
@@ -93,9 +93,15 @@ lines(0:100,rw_df_cer,type="l",col=myredBold,lwd=0.8)
 lines(0:100,mrv_df_cer,type="l",col="blue",lwd=0.8)
 lines(0:100,drft_df_cer,type="l",col="green",lwd=0.8)
 
-legend(5,0.15,c("Fixed 4%/year",'Random walk certainty-equivalent','Random walk 95% C.I.','Mean reverting certainty-equivalent',
-               'Mean reverting 95% C.I.','Model with background trend certainty equivalent','Model with background trend'),
+legend(5,0.15,c("Fixed 4%/year",
+                'Random walk certainty-equivalent',
+                'Random walk 95% credible intervals',
+                'Mean reverting certainty-equivalent',
+               'Mean reverting 95% credible intervals',
+               'Model with background trend certainty equivalent',
+               'Model with background trend 95% credible intervals'),
        col=c("black",myredBold,myred,"blue",myblue,mygreenBold,mygreen),lty=c(1,1,NA,1,NA,1,NA),pch=c(NA,NA,22,NA,22,NA,22),
-       bty="n",pt.bg=c(NA,NA,myred,NA,myblue,NA,mygreen),pt.cex=c(NA,NA,2,NA,2,NA,2))
+       bty="n",pt.bg=c(NA,NA,myred,NA,myblue,NA,mygreen),pt.cex=c(NA,NA,2,NA,2,NA,2),cex=0.8)
+#dev.off()
 dev.off()
 

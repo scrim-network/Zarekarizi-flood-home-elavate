@@ -64,7 +64,6 @@ np_data=discount[2:length(discount[,1]),]
 #####################
 # PLOT ##############
 #####################
-#jpeg(paste(main_path,"/Figures/S21_Discount_Rate_Timeseries.jpeg",sep=""),width =3.94, height =2.43,units="in",res=300)
 pdf(paste(main_path,"/Figures/S21_Discount_Rate_Timeseries.pdf",sep=""),width =3.94, height =2.43)
 #png(paste(main_path,"/Figures/S21_Discount_Rate_Timeseries.png",sep=""),width =3.94, height =2.43,units="in",res=300)
 
@@ -172,4 +171,5 @@ text(xmax-xmax*0.1,ymax-ymax*0.03,"c)")
 lines(c(xmin,xmax),c(4,4),col="gray",lty=3)
 lines(c(xmin,xmax),c(1.5,1.5),col="gray",lty=3)
 
+#dev.off()
 dev.off()

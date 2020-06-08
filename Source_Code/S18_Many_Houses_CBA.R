@@ -59,21 +59,19 @@ library(evd) # We would use pgev, qgev from this package
 require(lhs)
 source(paste(main_path,'/Source_Code/Functions/Cost_Damage_Calculator.R',sep=""))
 load(paste(main_path,"/",load_path,"/GEV_Parameters_MCMC.RData",sep=""))
+source(paste(main_path,'/Source_Code/Functions/MAP_function.R',sep=""))
 
-# Define functions 
-getmode <- function(v) {
-  uniqv <- unique(v)
-  uniqv[which.max(tabulate(match(v, uniqv)))]
-}
-
-# Based on the chain, estimate the best-guess parameters 
-mu=getmode(mu_chain)
-xi=getmode(xi_chain)
-sigma=getmode(sigma_chain) 
+# Calculate GEV parameters (choosing the MAP; the best-guess)
+pars_hat = find_MAP(mu_chain,sigma_chain,xi_chain)
+mu = pars_hat[1] # Location parameter used for ignoring-uncertainty scenario
+xi = pars_hat[3] # Shape parameter used for ignoring-uncertainty scenario
+sigma = pars_hat[2] # Scale parameter used for ignoring-uncertainty scenario
 
 # Estimate the base flood elevation based on the chain 
 BFE=qgev(p=0.99,shape=xi,scale=sigma,loc=mu) # FEMA BFE=35.3
+
 set.seed(0)
+
 z<- randomLHS(n_houses, 3)
 SOWs=matrix(NA,n_houses,3)
 SOWs[,1] <- qunif(z[,1],100,5000) #sqft

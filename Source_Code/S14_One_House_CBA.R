@@ -56,6 +56,7 @@ load(paste(main_path,"/",load_path,"/GEV_Parameters_MCMC.RData",sep=""))
 source(paste(main_path,"/Source_Code/Functions/random_discount.R",sep=""))
 discount <- readRDS(paste(main_path,"/Input_Data/discount.rds",sep=""))
 source(paste(main_path,"/Source_Code/Functions/House_chars.R",sep=""))
+source(paste(main_path,'/Source_Code/Functions/MAP_function.R',sep=""))
 
 sqft=house_charactersitics()[1,'sqft']
 Struc_Value=house_charactersitics()[1,'Struc_Value']
@@ -63,20 +64,14 @@ del=house_charactersitics()[1,'del']
 life_span=house_charactersitics()[1,'life_span']
 disc_rate=house_charactersitics()[1,'disc_rate']
 
-# Functions
-getmode <- function(v){
-  uniqv <- unique(v)
-  uniqv[which.max(tabulate(match(v, uniqv)))]
-}
-
-# Calculate GEV parameters (choosing the mode; the most probable prediction)
-mu=getmode(mu_chain) # Location parameter used for ignoring-uncertainty scenario
-xi=getmode(xi_chain) # Shape parameter used for ignoring-uncertainty scenario
-sigma=getmode(sigma_chain) # Scale parameter used for ignoring-uncertainty scenario
+# Calculate GEV parameters (choosing the MAP; the best-guess)
+pars_hat = find_MAP(mu_chain,sigma_chain,xi_chain)
+mu = pars_hat[1] # Location parameter used for ignoring-uncertainty scenario
+xi = pars_hat[3] # Shape parameter used for ignoring-uncertainty scenario
+sigma = pars_hat[2] # Scale parameter used for ignoring-uncertainty scenario
 
 # Given the above parameters, calculate the base flood elevation. Please note that we calculate the BFE using GEV and we do not use USGS data (in order to be consistent)
 BFE=qgev(p=0.99,shape=xi,scale=sigma,loc=mu) 
-
 
 # House initial stage (elevation difference with the benchmark of the river bed)
 House_Initial_Stage=BFE+del
@@ -89,7 +84,7 @@ if(run_function==1){ # Run the findopt_UNC function stored in Cost_Damage_Calcul
                             nsow=length(xi_chain),
                             discount,
                             save_return=1,
-                            n_strategy=100,
+                            n_strategy=20,
                             verbose=TRUE,
                             ddUnc='deep', #   'eu',
                             lifeUnc='weibull', #   'weibull',
@@ -97,7 +92,6 @@ if(run_function==1){ # Run the findopt_UNC function stored in Cost_Damage_Calcul
                             threshold_totalcost=0.75,
                             test=FALSE)
 }
-
 
 # The file has been saved with this name convention
 filename=paste(main_path,"/",load_path,"/House_case_objectives/Decision_Vars_V",toString(trunc(Struc_Value/1000)),"_Sq",toString(trunc(sqft)),"_I",toString(del),".RData",sep="")
@@ -109,9 +103,7 @@ load(filename)
 # Total Cost Plot (Panel A)
 ############################################################
 pdf(paste(main_path,"/Figures/S14_House_Objectives_P1.pdf",sep=""), width =3.94, height =2.43)
-#jpeg(paste(main_path,"/Figures/S14_House_Objectives_P1.jpeg",sep=""),width =3.94, height =2.43,units="in",res=300)
-#png(paste(main_path,"/Figures/S14_House_Objectives_P1.png",sep=""),width =3.94, height =2.43,units="in",res=300)
-#pdf(paste(main_path,"/Figures/S14_House_Objectivess_P1_v2.pdf",sep=""), width =3.5, height =2.5)
+#png(paste(main_path,"/Figures/S14_House_Objectives_P1.png",sep=""), width =3.94, height =2.43,units="in",res=300)
 
 par(cex=0.5)
 par(cex=0.5,mai=c(0.09,0.1,0.3,0.1))
@@ -190,10 +182,14 @@ if(indicator_lines==1){
   #text(-del-0.1,upper_ylim-0.15*upper_ylim,"BFE",adj=c(0,0),srt=90,cex=1)
 }
 
-legend(0,upper_ylim+0.23*upper_ylim,c("Total cost under uncertainty",'Total cost neglecting uncertainty',
+legend(0,upper_ylim+0.23*upper_ylim,c("Total cost under uncertainty",
+                                      'Total cost neglecting uncertainty',
                                       "Construction cost",
-                                      "Expected damages neglecting uncertainty",'Expected damages under uncertainty',
-                                      "Optimal elevation under uncertainty",'Optimal elevation neglecting uncertainty','90% C.I.'),
+                                      "Expected damages neglecting uncertainty",
+                                      'Expected damages under uncertainty',
+                                      "Optimal elevation under uncertainty",
+                                      'Optimal elevation neglecting uncertainty',
+                                      '90% credible intervals'),
        col=c("red","red",'black',"darkgreen","darkgreen","red","red",myred),
        lty=c(1,3,1,3,1,NA,NA,NA),
        lwd=c(1,1,1,1,1,NA,NA,NA)*0.5,
@@ -204,12 +200,13 @@ legend(0,upper_ylim+0.23*upper_ylim,c("Total cost under uncertainty",'Total cost
 text(1.5,upper_ylim-0.15*upper_ylim,'It is not practical\n to elevate a house\n by less than 3 feet',xpd=T,cex=0.7)
 text(-0.5,upper_ylim+0.2*upper_ylim,'a)',xpd=T)
 
+#dev.off()
 dev.off()
+
 ############################################################
 # Benefit to cost plot (Panel B)
 ############################################################
 pdf(paste(main_path,"/Figures/S14_House_Objectives_P2.pdf",sep=""), width =3.94, height =2.43)
-#jpeg(paste(main_path,"/Figures/S14_House_Objectives_P2.jpeg",sep=""),width =3.94, height =2.43,units="in",res=300)
 #png(paste(main_path,"/Figures/S14_House_Objectives_P2.png",sep=""),width =3.94, height =2.43,units="in",res=300)
 
 par(cex=0.5)
@@ -258,20 +255,22 @@ lines(x=c(0,14),y=c(1,1),col="black",lwd=1,lty=3)
 # Add legend
 #legend(6,1.98,c("Expected B/C under uncertainty","B/C ignoring uncertainty","90% C.I."),col=c("red","black",myred),
 #       lty=c(1,1,NA),lwd=c(1,1,NA),pch=c(NA,NA,22),pt.cex=c(NA,NA,2),bty="n",bg="white",box.col="black",pt.bg=c(NA,NA,myred),cex=0.5)
-legend(0.5,2,c("Expected B/C considering\n uncertainty","B/C neglecting uncertainty","90% credible intervals"),
+legend(0.5,2,c("Expected B/C considering\n uncertainty",
+               "B/C neglecting uncertainty",
+               "90% credible intervals"),
        col=c("red","red",myred),
        lty=c(1,3,NA),
        lwd=c(1,1,NA),
        pch=c(NA,NA,22),pt.cex=c(NA,NA,2),bty="n",bg="white",box.col="black",pt.bg=c(NA,NA,myred),cex=0.8,ncol=1,xpd=T)
 #text(0,ymax+0.05*ymax,paste("House size:",sqft,"[sqft], House initial elevation:",abs(del),"below BFE, House value:",Struc_Value,"U.S.$ ,Best guess lifetime:",life_span,"[years], Best guess discount rate:",disc_rate,'[%/year]'),
 #        col="black",cex=0.5,xpd=T,pos=4)
+#dev.off()
 dev.off()
 ############################################################
 # Safety plot (Panel C)
 ############################################################
 pdf(paste(main_path,"/Figures/S14_House_Objectives_P3.pdf",sep=""), width =3.94, height =2.43)
-#jpeg(paste(main_path,"/Figures/S14_House_Objectives_P3.jpeg",sep=""),width =3.94, height =2.43,units="in",res=300)
-#png(paste(main_path,"/Figures/S14_House_Objectives_P3.png",sep=""),width =3.94, height =2.43,units="in",res=300)
+#png(paste(main_path,"/Figures/S14_House_Objectives_P3.png",sep=""), width =3.94, height =2.43,units="in",res=300)
 
 par(cex=0.5)
 ymax=1
@@ -318,21 +317,22 @@ text(opt_height_unc-0.1,0+0.01*ymax,"OPT",adj=c(0,0),srt=90,cex=1,col="darkgreen
 lines(x=c(0,14),y=c(0.5,0.5),col="black",lwd=1,lty=3)
 text(0.5,0.54,'0.5')
 # Add legend
-legend(9.5,.4,c("Considering\n uncertainty","Neglecting uncertainty","90% credible intervals"),
+legend(9.5,.4,c("Considering\n uncertainty",
+                "Neglecting uncertainty",
+                "90% credible intervals"),
        col=c("red","red",myred),
        lty=c(1,3,NA),lwd=c(1,1,NA),pch=c(NA,NA,22),pt.cex=c(NA,NA,2),bty="n",box.col="black",pt.bg=c(NA,NA,myred),cex=0.8)
 #text(0,ymax+0.05*ymax,paste("House size:",sqft,"[sqft], House initial elevation:",abs(del),"below BFE, House value:",Struc_Value,"U.S.$ ,Best guess lifetime:",life_span,"[years], Best guess discount rate:",disc_rate,'[%/year]'),
 #     col="black",cex=0.5,xpd=T,pos=4)
 
 dev.off()
+#dev.off()
 
 ############################################################
 # Satisficing plot (Panel D)
 ############################################################
 pdf(paste(main_path,"/Figures/S14_House_Objectives_P4.pdf",sep=""), width =3.94, height =2.43)
-#jpeg(paste(main_path,"/Figures/S14_House_Objectives_P4.jpeg",sep=""),width =3.94, height =2.43,units="in",res=300)
-#png(paste(main_path,"/Figures/S14_House_Objectives_P4.png",sep=""),width =3.94, height =2.43,units="in",res=300)
-#pdf(paste(main_path,"/Figures/S14_House_Objectives_P4_v2.pdf",sep=""), width =3.5, height =2.5)
+#png(paste(main_path,"/Figures/S14_House_Objectives_P4.png",sep=""), width =3.94, height =2.43,units="in",res=300)
 
 par(cex=0.5)
 ymax=max(max(satisficing_all),max(satisficing_bcr),max(satisficing_safety),max(satisficing_totcost))
@@ -377,7 +377,8 @@ arrows(x0=opt_height_unc,y0=ymax,y1=ymax+ymax*0.1,xpd=T,length = 0.05,col="black
 lines(x=c(opt_height_unc,opt_height_unc),y=c(0,ymax),col="gray",lwd=1,lty=3)
 
 # Add legend
-legend(0.2,98,c("Satisficing all objectives","Satisficing benefit-to-cost ratio",
+legend(0.2,98,c("Satisficing all objectives",
+                "Satisficing benefit-to-cost ratio",
                 "Satisficing the ratio of \ntotal cost to house value",
                 "Satisficing reliability"),
        col=c("red","blue","purple","orange"),
@@ -385,5 +386,6 @@ legend(0.2,98,c("Satisficing all objectives","Satisficing benefit-to-cost ratio"
 #text(0,ymax+0.05*ymax,paste("House size:",sqft,"[sqft], House initial elevation:",abs(del),"below BFE, House value:",Struc_Value,"U.S.$ ,Best guess lifetime:",life_span,"[years], Best guess discount rate:",disc_rate,'[%/year]'),
 #     col="black",cex=0.5,xpd=T,pos=4)
 text(-0.5,ymax+0.2*ymax,'b)',xpd=T)
+#dev.off()
 dev.off()
 

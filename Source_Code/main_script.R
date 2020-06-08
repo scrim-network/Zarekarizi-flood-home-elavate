@@ -74,8 +74,6 @@ if(dir.exists(tmp)==F){dir.create(tmp, recursive=T)}
 tmp <- paste0(getwd(), "/Output_Data/sobol_outputs/")
 if(dir.exists(tmp)==F){dir.create(tmp, recursive=T)}
 
-
-
 # # List of packages you will need to install (uncomment if you have not them installed)
 # # If on a server, you may need to try this: install.packages("<name of package>", repos="http://cran.r-project.org", lib="~/local/R_libs/")  
 # install.packages("lattice")
@@ -159,10 +157,10 @@ if(!use_prepared_data){ #If you are planning to use the pre-generated data, do n
 }
 
 source("./Source_Code/S19_Community_Analysis.R") ## Script creates plots with for comparing FEMA, with-uncertainty, and without-uncertainty strategies 
-print('Step19 DONE: Houses in which FEMA does not pass B/C test are classified with CART')
+print('Step19 DONE: optimal elevations for all houses are analyzed')
 
 source("./Source_Code/S21_Discount_Rate_Timeseries.R") 
-print('Step21 DONE: Houses in which FEMA does not pass B/C test are classified with PRIM')
+print('Step21 DONE: timeseries of discount rates are plotted')
 
 source("./Source_Code/S22_Disc_Rate_on_Damage_Comparision.R")
 print('Step 22 DONE: Comparison of damages under different discount rate models')

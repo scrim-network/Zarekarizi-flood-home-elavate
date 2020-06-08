@@ -19,7 +19,7 @@
 ## along with this file.  If not, see <http://www.gnu.org/licenses/>.
 ##==============================================================================
 
-set.seed(0)
+set.seed(10)
 main_path=getwd()
 
 mymodel <- function(X,bds){
@@ -121,6 +121,7 @@ source(paste(main_path,"/Source_Code/Functions/random_discount.R",sep=""))
 source(paste(main_path,"/Source_Code/Functions/House_chars.R",sep=""))
 source(paste(main_path,'/Source_Code/Functions/Cost_Damage_Calculator.R',sep=""))
 source(paste(main_path,'/Source_Code/Functions/sobol_functions.R',sep=""))
+source(paste(main_path,'/Source_Code/Functions/MAP_function.R',sep=""))
 
 # Global variables 
 n_samp <- 1e5 # define size of ensemble
@@ -155,10 +156,11 @@ Dfs_drift=(compute_dfactors(drift_discount(log(obs_discount[,2]),200,1e4)))
 Dfs_const4=c(1,exp(-1*cumsum(rep(0.04,200))))
 Dfs_const15=c(1,exp(-1*cumsum(rep(1.5/100,200))))
 
-# Calculate GEV parameters (choosing the mode; the most probable prediction)
-mu=getmode(mu_chain) # Location parameter used for ignoring-uncertainty scenario
-xi=getmode(xi_chain) # Shape parameter used for ignoring-uncertainty scenario
-sigma=getmode(sigma_chain) # Scale parameter used for ignoring-uncertainty scenario
+pars_hat = find_MAP(mu_chain,sigma_chain,xi_chain)
+mu = pars_hat[1] # Location parameter used for ignoring-uncertainty scenario
+xi = pars_hat[3] # Shape parameter used for ignoring-uncertainty scenario
+sigma = pars_hat[2] # Scale parameter used for ignoring-uncertainty scenario
+
 # Given the above parameters, calculate the base flood elevation. Please note that we calculate the BFE using GEV and we do not use USGS data (in order to be consistent)
 BFE=qgev(p=0.99,shape=xi,scale=sigma,loc=mu) # FEMA BFE=35.3
 # House initial stage (elevation difference with the benchmark of the river bed)

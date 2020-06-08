@@ -28,7 +28,7 @@
 ##==============================================================================
 
 main_path=getwd() #Gets the current directory 
-set.seed(0)
+set.seed(10)
 mygreen <- rgb(44/255, 185/255, 95/255, 1) 
 myblue <- rgb(0/255, 128/255, 1, 1)
 myred <- rgb(1, 102/255, 102/255, 1)
@@ -89,7 +89,7 @@ radi=0.6
 alph=360/(n_params)
 
 pdf(paste("Figures/S30_Sensitivity_Radial_deep.pdf",sep=""), width =3.94, height =3.94)
-#jpeg(paste("Figures/S30_Sensitivity_Radial_deep.jpeg",sep=""),width =3.94, height =3.94,units="in",res=300)
+#png(paste("Figures/S30_Sensitivity_Radial_deep.png",sep=""), width =3.94, height =3.94,units="in",res=300)
 
 par(cex=0.5,mai=c(0.1,0.1,0.1,0.1))
 plot(c(-1,1),c(-1,1),bty="n",xlab="",ylab="",xaxt="n",yaxt="n",type="n")
@@ -153,6 +153,7 @@ text(0.9,0.9,'Earth sciences',cex=1.5,col="darkgreen", font=2)#,srt=-50)
 text(0.5,0.24,'Social sciences',cex=1.5,col="purple", font=2)#,srt=20)
 text(0.08,0.69,'Engineering',cex=1.5,col="darkred", font=2)#,srt=-90)
 
+#dev.off()
 dev.off()
 
 
