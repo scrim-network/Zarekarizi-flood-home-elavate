@@ -123,8 +123,8 @@ MC_rl_cert <- myreturnlevel(plot_rps,mu_cert,sigma_cert,xi_cert)
 ###############################
 ########### PLOT ##############
 ###############################
-png(paste(main_path,"/Figures/S11_Return_Level_Plot.png",sep=""),width =3.94, height =2.43,units="in",res=300)
 pdf(paste(main_path,"/Figures/S11_Return_Level_Plot.pdf",sep=""),width =3.94, height =2.43)
+#png(paste(main_path,"/Figures/S11_Return_Level_Plot.png",sep=""),width =3.94, height =2.43,units="in",res=300)
 
 # plot high-level variables
 par(cex=0.5,mai=c(0.3,0.4,0.1,0.1))
@@ -205,7 +205,7 @@ lines(x=c(xmin,xmax),y=c(ymean_best_guess,ymean_best_guess),col="blue")
 # Panel indicator 
 text(xmin+0.01,ymax-ymax*0.05,"e)",cex=1.5)
 
-dev.off()
+#dev.off()
 dev.off()
 
 print(paste('100-year return level with considering uncertainty=',ymean))
