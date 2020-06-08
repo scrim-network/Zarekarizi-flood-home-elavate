@@ -82,9 +82,8 @@ xmin=xmin-0.05*xmin
 ymax=max(max(h1$density),max(h2$density),max(h3$density))
 ymin=0
 
-#jpeg(paste(main_path,"/Figures/S22_DiscountRate_Impact_On_Damages.jpeg",sep=""),width =3.94, height =2.43,units="in",res=300)
 pdf(paste(main_path,"/Figures/S22_DiscountRate_Impact_On_Damages.pdf",sep=""),width =3.94, height =2.43)
-#png(paste(main_path,"/Figures/S22_DiscountRate_Impact_On_Damages.png",sep=""),width =3.94, height =2.43,units="in",res=300)
+png(paste(main_path,"/Figures/S22_DiscountRate_Impact_On_Damages.png",sep=""),width =3.94, height =2.43,units="in",res=300)
 
 par(cex=0.5)
 par(cex=0.5,mai=c(0.09,0.09,0.09,0.09))
@@ -158,5 +157,6 @@ abline(v=EAD*fixed_df_15,col="darkgoldenrod3",lwd=2)
 points(mean(EAD*apply(drft_df_unc,1,sum)),1,cex=1.5,pch=18,col="red",bg="red")
 text(EAD*xmin,1,"a)",xpd=T)
 
+dev.off()
 dev.off()
 

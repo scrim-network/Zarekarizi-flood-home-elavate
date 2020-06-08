@@ -104,8 +104,7 @@ load(filename)
 
 # Start plotting 
 pdf(paste(main_path,"/Figures/S15_Parallel_Axes_Plot.pdf",sep=''), width =3.94, height =2.43)
-#jpeg(paste(main_path,"/Figures/S15_Parallel_Axes_Plot.jpeg",sep=""),width =3.94, height =2.43,units="in",res=300)
-#png(paste(main_path,"/Figures/S15_Parallel_Axes_Plot.png",sep=""),width =3.94, height =2.43,units="in",res=300)
+#png(paste(main_path,"/Figures/S15_Parallel_Axes_Plot.png",sep=""), width =3.94, height =2.43,units="in",res=300)
 
 par(cex=0.5,mai=c(0.4,0.2,0.1,0.1)) #Margins for the entire figure
 par(cex=0.45,fig=c(0,0.9,0,1)) #Position of the first panel 
@@ -165,5 +164,6 @@ image.plot(legend.only=TRUE, zlim=c(0,14),
            col =rgb(0,0.5,punif(delta_h_seq,min=min(delta_h_seq),max=max(delta_h_seq))), 
             horizontal = F,legend.cex=0.6,cex.axis=0.6,legend.lab="Heightening [ft]",
            legend.shrink=0.75) 
+#dev.off()
 dev.off()
 

@@ -48,6 +48,7 @@ cols=c('darkgreen','darkgreen','darkgreen','darkred','purple','purple')
 
 # Make the plot 
 pdf(paste(main_path,"/Figures/S31_SA_RadialPlot_Scenario_Map.pdf",sep=""),width =3.94*2, height =3*3.94)
+#png(paste(main_path,"/Figures/S31_SA_RadialPlot_Scenario_Map.png",sep=""),width =3.94*2, height =3*3.94,units="in",res=300)
 
 par(cex=0.5,mai=c(0,0.3,0.3,0))
 plot(c(-1,1),c(-1,1),bty="n",xlab="",ylab="",xaxt="n",yaxt="n",type="n")
@@ -112,8 +113,13 @@ for(dr_ind in 1:3){
       cosa=cospi(alph*i/180)
       sina=sinpi(alph*i/180)
       #text(cent_x+cosa,cent_y,expression(mu))
-      text(cent_x+cosa*(radi+radi*0.3),cent_y+sina*(radi+radi*0.6),names[j],srt=0,cex=1.5,col=cols[j])
-
+      #text(cent_x+cosa*(radi+radi*0.3),cent_y+sina*(radi+radi*0.6),names[j],srt=0,cex=1.5,col=cols[j])
+      if(j==3){
+        text(cent_x+cosa*(radi+radi*0.9),cent_y+sina*(radi+radi*0.5),names[j],srt=0,cex=1.5,col=cols[j])
+      }else{
+        text(cent_x+cosa*(radi+radi*0.2),cent_y+sina*(radi+radi*0.5),names[j],srt=0,cex=1.5,col=cols[j])
+      }
+    
       myX=cent_x+cosa*(radi-0.2*radi)
       myY=cent_y+sina*(radi+0.1*radi)
       for (z in j:n_params){
@@ -172,6 +178,7 @@ text(-1.07,0.75,'Mean reverting with trend',cex=2.5,xpd=TRUE,srt=90)
 text(-1.07,0.2,'Mean reverting',cex=2.5,xpd=TRUE,srt=90)
 text(-1.07,-0.4,'Random walk',cex=2.5,xpd=TRUE,srt=90)
 
+#dev.off()
 dev.off()
 
 

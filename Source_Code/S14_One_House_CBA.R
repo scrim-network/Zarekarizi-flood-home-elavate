@@ -103,9 +103,7 @@ load(filename)
 # Total Cost Plot (Panel A)
 ############################################################
 pdf(paste(main_path,"/Figures/S14_House_Objectives_P1.pdf",sep=""), width =3.94, height =2.43)
-#jpeg(paste(main_path,"/Figures/S14_House_Objectives_P1.jpeg",sep=""),width =3.94, height =2.43,units="in",res=300)
-#png(paste(main_path,"/Figures/S14_House_Objectives_P1.png",sep=""),width =3.94, height =2.43,units="in",res=300)
-#pdf(paste(main_path,"/Figures/S14_House_Objectivess_P1_v2.pdf",sep=""), width =3.5, height =2.5)
+#png(paste(main_path,"/Figures/S14_House_Objectives_P1.png",sep=""), width =3.94, height =2.43,units="in",res=300)
 
 par(cex=0.5)
 par(cex=0.5,mai=c(0.09,0.1,0.3,0.1))
@@ -202,12 +200,13 @@ legend(0,upper_ylim+0.23*upper_ylim,c("Total cost under uncertainty",
 text(1.5,upper_ylim-0.15*upper_ylim,'It is not practical\n to elevate a house\n by less than 3 feet',xpd=T,cex=0.7)
 text(-0.5,upper_ylim+0.2*upper_ylim,'a)',xpd=T)
 
+#dev.off()
 dev.off()
+
 ############################################################
 # Benefit to cost plot (Panel B)
 ############################################################
 pdf(paste(main_path,"/Figures/S14_House_Objectives_P2.pdf",sep=""), width =3.94, height =2.43)
-#jpeg(paste(main_path,"/Figures/S14_House_Objectives_P2.jpeg",sep=""),width =3.94, height =2.43,units="in",res=300)
 #png(paste(main_path,"/Figures/S14_House_Objectives_P2.png",sep=""),width =3.94, height =2.43,units="in",res=300)
 
 par(cex=0.5)
@@ -265,13 +264,13 @@ legend(0.5,2,c("Expected B/C considering\n uncertainty",
        pch=c(NA,NA,22),pt.cex=c(NA,NA,2),bty="n",bg="white",box.col="black",pt.bg=c(NA,NA,myred),cex=0.8,ncol=1,xpd=T)
 #text(0,ymax+0.05*ymax,paste("House size:",sqft,"[sqft], House initial elevation:",abs(del),"below BFE, House value:",Struc_Value,"U.S.$ ,Best guess lifetime:",life_span,"[years], Best guess discount rate:",disc_rate,'[%/year]'),
 #        col="black",cex=0.5,xpd=T,pos=4)
+#dev.off()
 dev.off()
 ############################################################
 # Safety plot (Panel C)
 ############################################################
 pdf(paste(main_path,"/Figures/S14_House_Objectives_P3.pdf",sep=""), width =3.94, height =2.43)
-#jpeg(paste(main_path,"/Figures/S14_House_Objectives_P3.jpeg",sep=""),width =3.94, height =2.43,units="in",res=300)
-#png(paste(main_path,"/Figures/S14_House_Objectives_P3.png",sep=""),width =3.94, height =2.43,units="in",res=300)
+#png(paste(main_path,"/Figures/S14_House_Objectives_P3.png",sep=""), width =3.94, height =2.43,units="in",res=300)
 
 par(cex=0.5)
 ymax=1
@@ -327,14 +326,13 @@ legend(9.5,.4,c("Considering\n uncertainty",
 #     col="black",cex=0.5,xpd=T,pos=4)
 
 dev.off()
+#dev.off()
 
 ############################################################
 # Satisficing plot (Panel D)
 ############################################################
 pdf(paste(main_path,"/Figures/S14_House_Objectives_P4.pdf",sep=""), width =3.94, height =2.43)
-#jpeg(paste(main_path,"/Figures/S14_House_Objectives_P4.jpeg",sep=""),width =3.94, height =2.43,units="in",res=300)
-#png(paste(main_path,"/Figures/S14_House_Objectives_P4.png",sep=""),width =3.94, height =2.43,units="in",res=300)
-#pdf(paste(main_path,"/Figures/S14_House_Objectives_P4_v2.pdf",sep=""), width =3.5, height =2.5)
+#png(paste(main_path,"/Figures/S14_House_Objectives_P4.png",sep=""), width =3.94, height =2.43,units="in",res=300)
 
 par(cex=0.5)
 ymax=max(max(satisficing_all),max(satisficing_bcr),max(satisficing_safety),max(satisficing_totcost))
@@ -388,5 +386,6 @@ legend(0.2,98,c("Satisficing all objectives",
 #text(0,ymax+0.05*ymax,paste("House size:",sqft,"[sqft], House initial elevation:",abs(del),"below BFE, House value:",Struc_Value,"U.S.$ ,Best guess lifetime:",life_span,"[years], Best guess discount rate:",disc_rate,'[%/year]'),
 #     col="black",cex=0.5,xpd=T,pos=4)
 text(-0.5,ymax+0.2*ymax,'b)',xpd=T)
+#dev.off()
 dev.off()
 

@@ -219,10 +219,7 @@ temp_func_cert=expected_damages(Struc_Value,
                                 0
                                 )
 
-
-
 # PLOTING 
-#jpeg(paste(main_path,"/Figures/S12_Value_UQ_v2.jpeg",sep=""),width =3.94, height =3.94,units="in",res=300)
 pdf(paste(main_path,"/Figures/S12_Value_UQ.pdf",sep=""),width =3.5, height =3.5)
 #png(paste(main_path,"/Figures/S12_Value_UQ.png",sep=""),width =3.5, height =3.5,units="in",res=300)
 
@@ -277,10 +274,11 @@ lines(x=c(2.4,2.6),y=c(max(temp2),max(temp2)),col="black")
 par(fig=c(0,1,0,1),cex=0.5,new=T)
 plot(NA,NA,type="n",xlim=c(0,1),ylim=c(0,1),bty="n",xaxt="n",yaxt="n",xlab="",ylab="")
 text(0.7,0.73,'EAD',bty="n",xpd=T,cex=1)
-legend(x=0.02,y=1,c('Ignoring uncertainty','Expected value \nunder uncertainty','90% confidence intervals'),lty=c(1,1,NA),
+legend(x=0.02,y=1,c('Ignoring uncertainty','Expected value \nunder uncertainty','90% credible intervals'),lty=c(1,1,NA),
        col=c('blue',"red",myred),pch=c(NA,NA,22),pt.cex=c(NA,NA,3),bty="n",pt.bg=c(NA,NA,myred))
 text(0,1.05,'a)',bty="n",xpd=T,cex=1.5)
 text(0.7,0.94,'b)',bty="n",xpd=T,cex=1.5)
 text(0.7,.57,'c)',bty="n",xpd=T,cex=1.5)
 
+#dev.off()
 dev.off()

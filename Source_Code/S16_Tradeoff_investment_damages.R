@@ -101,8 +101,7 @@ load(filename)
 
 # Start the plot
 pdf(paste(main_path,"/Figures/S16_Tradeoffs_damages_investment.pdf",sep=""), width =2.43, height =2.43)
-#jpeg(paste(main_path,"/Figures/S16_Tradeoffs_damages_investment.jpeg",sep=""),width =3.94, height =3.94,units="in",res=300)
-#png(paste(main_path,"/Figures/S16_Tradeoffs_damages_investment.png",sep=""),width =3.94, height =3.94,units="in",res=300)
+png(paste(main_path,"/Figures/S16_Tradeoffs_damages_investment.png",sep=""), width =2.43, height =2.43,units="in",res=300)
 
 par(cex=0.5) #Adjust the size 
 
@@ -218,5 +217,6 @@ legend(x4-0.15*x4,y4-0.02*y4,c('Considering uncertainty','Neglecting uncertainty
        lty=c(1,1,1,3,NA,NA,NA,NA),pch=c(NA,NA,NA,NA,0,20,8,9),bty="l",box.lwd=0.5,box.col="gray",cex=0.6,pt.cex = c(NA,NA,NA,NA,1,1,1,1),pt.lwd = c(NA,NA,NA,NA,1,1,0.5,0.5))
 
 
+dev.off()
 dev.off()
 
