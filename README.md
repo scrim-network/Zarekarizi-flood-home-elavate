@@ -23,26 +23,47 @@ Until the paper is published, please cite our preprint at this link:https://arxi
 
 # System requirement 
 To run this program you will need R and the following packages: 
+
 R version 3.5.1 (2018-07-02)
+
 lattice (version=‘0.20.35’),
+
 Kendall (version=‘2.2’),
+
 ismev (version=‘1.42’),
+
 evdbayes (version=‘1.1.1’),
+
 evir (version=‘1.7.4’),
+
 evd (version=‘2.3.3’),
+
 lhs (version=‘1.0.1’),
+
 fields (version=‘9.6’),
+
 plotrix (version=‘3.7.5’),
+
 rpart (version=‘4.1.15’),
+
 rpart.plot (version=‘3.0.7’),
+
 DEoptim (version=‘2.2.4’),
+
 prim (version=‘1.0.16’),
+
 truncnorm (version=‘1.0.8’),
+
 sdtoolkit (version=‘2.31’),
+
 sensitivity (version=‘1.16.0’),
+
 pracma (version=‘2.2.5’)
+
 This code has been tested on a system with the following characteristics:
+
 platform: x86_64-apple-darwin15.6.0 (64-bit) 
+
 Running under: macOS  10.14.6
 
 # Typical installation time
