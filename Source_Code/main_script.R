@@ -54,7 +54,7 @@
 # Start the program here
 rm(list=ls()) #Just in case, remove any variable that is already loaded 
 graphics.off() #to make sure the user does not have an open figure
-use_prepared_data=FALSE
+use_prepared_data=TRUE
 if(use_prepared_data){
   load_path='Pre_Generated_Output_Data'
 }else{

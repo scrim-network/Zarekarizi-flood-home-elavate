@@ -22,7 +22,33 @@ Homeowners around the world elevate houses to manage flood risks. Deciding how h
 Until the paper is published, please cite our preprint at this link:https://arxiv.org/abs/2001.06457  
 
 # System requirement 
-To run this program you will need R and the following packages: lattice,Kendall,ismev,evdbayes,evir,evd,lhs,fields,plotrix,lhs,rpart,rpart.plot,DEoptim,prim,truncnorm,sdtoolkit,sensitivity,pracma
+To run this program you will need R and the following packages: 
+R version 3.5.1 (2018-07-02)
+lattice (version=‘0.20.35’),
+Kendall (version=‘2.2’),
+ismev (version=‘1.42’),
+evdbayes (version=‘1.1.1’),
+evir (version=‘1.7.4’),
+evd (version=‘2.3.3’),
+lhs (version=‘1.0.1’),
+fields (version=‘9.6’),
+plotrix (version=‘3.7.5’),
+rpart (version=‘4.1.15’),
+rpart.plot (version=‘3.0.7’),
+DEoptim (version=‘2.2.4’),
+prim (version=‘1.0.16’),
+truncnorm (version=‘1.0.8’),
+sdtoolkit (version=‘2.31’),
+sensitivity (version=‘1.16.0’),
+pracma (version=‘2.2.5’)
+This code has been tested on a system with the following characteristics:
+platform: x86_64-apple-darwin15.6.0 (64-bit) 
+Running under: macOS  10.14.6
+
+# Typical installation time
+about an hour on R version 3.5.1 (2018-07-02)
+platform: x86_64-apple-darwin15.6.0 (64-bit) 
+Running under: macOS  10.14.6
 
 # How to run the code 
 General description:
@@ -58,6 +84,7 @@ Outputs:
 2. Data are saved in the Output_Data folder under the main directory
 Requirements before running
 
+Run 
 
 # Contacts 
 Mahkameh Zarekarizi mxz414@psu.edu and mahkameh.zare@gmail.com
@@ -75,3 +102,15 @@ These files are distributed in the hope that they will be useful, but WITHOUT AN
 
 You should have received a copy of the GNU General Public License along with these files. If not, see http://www.gnu.org/licenses/.
  
+ # Demo
+ Run time on macOS  10.14.6 is 15 minutes
+ Instructions:
+Open R or Rstudio
+set the main folder of this code (zarekarizi-flood-home-elevate) as the Working Directory in R.
+Open main_script.R and set use_prepared_data=TRUE (this is the default option). 
+Figures and output data will be saved under 'Output_Data' and 'Figures' under the main directory
+Expected outputs are saved under Pre_Generated_Figures and Pre_Generated_Output_Data
+
+# Run the code on your data:
+provide USGS streamflow, rating curves, and discount rate timeseries under Input_Data 
+Choose the characteristics of the house analyzed under Source_Code/Functions/House_chars.R
