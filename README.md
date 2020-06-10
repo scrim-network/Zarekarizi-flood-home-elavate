@@ -68,7 +68,9 @@ Running under: macOS  10.14.6
 
 # Typical installation time
 about an hour on R version 3.5.1 (2018-07-02)
+
 platform: x86_64-apple-darwin15.6.0 (64-bit) 
+
 Running under: macOS  10.14.6
 
 # How to run the code 
