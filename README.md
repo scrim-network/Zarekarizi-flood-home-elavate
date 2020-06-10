@@ -1,4 +1,4 @@
-# Neglecting Uncertainties Leads to Suboptimal Decisions About Home-Owners Flood Risk Management
+# Neglecting Uncertainties Biases House-Elevation Decisions to Manage Riverine Flood Risks 
 
 Authors: Mahkameh Zarekarizi (1)*, Vivek Srikrishnan (1), and Klaus Keller (1,2)
 
